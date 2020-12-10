@@ -1,7 +1,6 @@
-import com.sun.rowset.internal.Row;
-import javafx.scene.control.Cell;
-import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
+import org.apache.xmlbeans.impl.regex.ParseException;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -42,8 +41,8 @@ public class ReadExcelData {
 	final static int academHour = 19;   // академических часов (число)
 	final static int academRecord = 20;   // академических записей (число)
 
-	//   String fileName = "PrimerRaspisania.xlsx";
-	String fileName = "fileToRead";
+	String fileName = "Primer_raspisania.xlsx";
+	//String fileName = "fileToRead";
 	private LinkedList<String> columndata;
 
 	public ReadExcelData() {
@@ -55,7 +54,7 @@ public class ReadExcelData {
 	public static void main(String[] args) throws IOException {
 
 		ReadExcelData code = new ReadExcelData();
-		code.getDataStringIntegerDate(ReadExcelData.clasRum);
+		code.getDataStringIntegerDate(ReadExcelData.courseID);
 		//    code.getDataTime(ReadExcelData.timeEnd);
 	}
 
@@ -154,7 +153,8 @@ public class ReadExcelData {
 		}
 		return columndata;
 	}
-	public List<String> getDataStringIntegerDate(String fileName, int columnIndex)  {
+
+	/*public List<String> getDataStringIntegerDate(String fileName, int columnIndex)  {
 
 		try {
 			File f = new File(fileName);
@@ -199,5 +199,5 @@ public class ReadExcelData {
 			e.printStackTrace();
 		}
 		return columndata;
-	}
+	}*/
 }
