@@ -54,8 +54,8 @@ public class ReadExcelData {
 	public static void main(String[] args) throws IOException {
 
 		ReadExcelData code = new ReadExcelData();
-		code.getDataStringIntegerDate(ReadExcelData.courseID);
-		//    code.getDataTime(ReadExcelData.timeEnd);
+	//	code.getDataStringIntegerDate(ReadExcelData.timeEnd);
+		code.getDataTime(ReadExcelData.timeEnd);
 	}
 
 
@@ -72,12 +72,12 @@ public class ReadExcelData {
 			FileInputStream ios = new FileInputStream(f);
 			XSSFWorkbook workbook = new XSSFWorkbook(ios);
 			XSSFSheet sheet = workbook.getSheetAt(0);
-			Iterator<org.apache.poi.ss.usermodel.Row> rowIterator = sheet.iterator();
+			Iterator<Row> rowIterator = sheet.iterator();
 			columndata = new LinkedList<String>();
 
 			while (rowIterator.hasNext()) {
-				org.apache.poi.ss.usermodel.Row row = rowIterator.next();
-				Iterator<org.apache.poi.ss.usermodel.Cell> cellIterator = row.cellIterator();
+				Row row = rowIterator.next();
+				Iterator<Cell> cellIterator = row.cellIterator();
 				while (cellIterator.hasNext()) {
 					Cell cell = cellIterator.next();
 
