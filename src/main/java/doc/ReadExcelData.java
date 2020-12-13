@@ -1,3 +1,5 @@
+package doc;
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 import org.apache.xmlbeans.impl.regex.ParseException;
@@ -54,7 +56,7 @@ public class ReadExcelData {
 	public static void main(String[] args) throws IOException {
 
 		ReadExcelData code = new ReadExcelData();
-	//	code.getDataStringIntegerDate(ReadExcelData.timeEnd);
+	//	code.getDataStringIntegerDate(doc.ReadExcelData.timeEnd);
 		code.getDataTime(ReadExcelData.timeEnd);
 	}
 
