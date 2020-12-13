@@ -12,11 +12,12 @@ import java.util.List;
  */
 public class ClassConnection {
 	private static Connection conn = null;
-//    private static String URL = "jdbc:postgresql://localhost:5432/test";
-//    private static String USERNAME = "postgres";
-//    private static String PASSWORD = "alex159";
-
 	/**
+    private static String URL = "jdbc:postgresql://localhost:5432/test";
+    private static String USERNAME = "postgres";
+    private static String PASSWORD = "alex159";
+
+
 	 * public static void main(String[] args) throws SQLException {
 	 *
 	 * PreparedStatement stm = null; ResultSet result = null; String SQL = "";
@@ -48,8 +49,8 @@ public class ClassConnection {
 	 */
 
 	public static void main(String[] args) throws SQLException {
-		ClassConnection classConn = new ClassConnection();
-	//	classConn
+	/*	ClassConnection classConn = new ClassConnection();
+		classConn.*/
 	}
 
 	public static Connection getConnection() throws SQLException {
