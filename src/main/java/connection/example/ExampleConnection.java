@@ -42,22 +42,23 @@ public class ExampleConnection {
 			}
 			stm.addBatch();
 			stm.executeUpdate();
+
+			// запрос просмотра данных в столбце
+			SQL = "SELECT value FROM \"public\".contact LIMIT 100000;";
+			stm = conn.prepareStatement(SQL);
+			result = stm.executeQuery();
+
+			while (result.next()) {
+				String value = result.getString("value");
+				System.out.println(value);
+			}
 		}
 	 catch(Exception e)	{
 		assert e != null; e.printStackTrace();
-	} finally 	{
+	}
+		finally  {
 			conn.close();
-			System.out.println("Закрыли соединение с БД " +
-				"после внесения и просмотра данных...");
-		}
-		// запрос просмотра данных в столбце
-		SQL = "SELECT value FROM \"public\".contact LIMIT 100000;";
-		stm = conn.prepareStatement(SQL);
-		result = stm.executeQuery();
-
-		while (result.next()) {
-			String value = result.getString("value");
-			System.out.println(value);
+			System.out.println("Закрыли соединение с БД после внесения и просмотра данных...");
 		}
 	}
 }
