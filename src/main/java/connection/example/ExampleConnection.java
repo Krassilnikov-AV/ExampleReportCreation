@@ -4,10 +4,11 @@
 
 package connection.example;
 
+import connection.ConfigurateApp;
 import doc.ReadExcelData;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.STString;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,9 +21,12 @@ public class ExampleConnection {
 	static ResultSet result = null;
 	static String SQL = "";
 
-	private static String URL = "jdbc:postgresql://localhost:5432/test";
-	private static String USERNAME = "postgres";
-	private static String PASSWORD = "alex159";
+//	private static String URL = "jdbc:postgresql://localhost:5432/test";
+//	private static String USERNAME = "postgres";
+//	private static String PASSWORD = "alex159";
+
+	ConfigurateApp conf = new ConfigurateApp();
+
 
 	public static void main(String[] args) throws SQLException {
 		//запрос на внесение прочитанных данных в столбец
@@ -35,7 +39,7 @@ public class ExampleConnection {
 			stm = conn.prepareStatement(SQL);
 
 			ReadExcelData read = new ReadExcelData();
-			List<String> list = read.getDataStringIntegerDate(0);
+			List<<Integer><Integer><String><Date><>> list = read.getDataStringIntegerDate(0);
 
 			for (String value : list) {
 				stm.setString(1, value);
