@@ -32,10 +32,11 @@ public class ExampleConnection {
 
 	// метод для установления соединения
 	private static Connection getPostConnection() throws SQLException {
-		ConfigurateApp conf = new ConfigurateApp();
+		//ConfigurateApp conf = new ConfigurateApp();
 		System.out.println("Устанавливаем соединение с БД...");
 
-		return DriverManager.getConnection(conf.getDatabaseUrl(), conf.getDatabaseUser(), conf.getDatabasePassword());
+	//	return DriverManager.getConnection(conf.getDatabaseUrl(), conf.getDatabaseUser(), conf.getDatabasePassword());
+		return DriverManager.getConnection("jdbc:postgresql://localhost:5432/raspisanie", "postgres", "alex159");
 	}
 
 	// метод для внесения данных в таблицу
@@ -56,8 +57,8 @@ public class ExampleConnection {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			conn.close();
-			System.out.println("Закрыли соединение с БД после внесения и просмотра данных...");
+		//	conn.close();
+			System.out.println("Закрыли соединение с БД после внесения данных...");
 		}
 	}
 
@@ -67,6 +68,7 @@ public class ExampleConnection {
 
 		// запрос просмотра данных в столбце
 		SQL = "SELECT contact FROM raspisanie";
+		try {
 		stm = conn.prepareStatement(SQL);
 
 		result = stm.executeQuery();
@@ -74,6 +76,12 @@ public class ExampleConnection {
 		while (result.next()) {
 			String value = result.getString("value");
 			System.out.println(value);
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			conn.close();
+			System.out.println("Закрыли соединение с БД после просмотра данных...");
 		}
 	}
 }

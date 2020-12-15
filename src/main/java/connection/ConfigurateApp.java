@@ -84,6 +84,6 @@ public class ConfigurateApp {
 
 	@Override
 	public String toString() {
-		return databaseUrl = databaseDriver + databaseHost + databaseName;
+		return getDatabaseUrl();
 	}
 }
