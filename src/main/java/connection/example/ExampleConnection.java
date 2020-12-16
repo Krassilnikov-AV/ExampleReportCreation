@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ExampleConnection {
 
-	private static Connection conn = null;
+	static Connection conn = null;
 	static String SQL = "";
 	static PreparedStatement stm = null;
 	static ConfigurateApp conf = new ConfigurateApp();
@@ -41,17 +41,18 @@ public class ExampleConnection {
         System.out.println("есть url...");
         return url;
 }*/
-	private static String getURL() {
+	public static String getURL() {
 		String databaseDriver = conf.getDatabaseDriver();
 		String databaseHost = conf.getDatabaseHost();
 		String databasePort = conf.getDatabasePort();
 		String databaseName = conf.getDatabaseName();
 
-		String url = "://".concat(databaseDriver).concat(databaseHost).concat(":").concat(databasePort).concat("/").concat(databaseName);
+		String url =
+			databaseDriver.concat("://").concat(databaseHost).concat(":").concat(databasePort).concat("/").concat(databaseName);
 		return url;
 	}
 
-	private static Connection getPostConnection() throws SQLException {
+	public static Connection getPostConnection() throws SQLException {
 
 		System.out.println("Устанавливаем соединение с БД...");
 		final Connection connection;
@@ -61,7 +62,7 @@ public class ExampleConnection {
 	}
 
 	// метод для внесения данных в таблицу
-	private static void insertQuerySQL() throws SQLException {
+	public static void insertQuerySQL() throws SQLException {
 		//запрос на внесение прочитанных данных в столбец
 		SQL = "insert into contact(person) values (?)";
 		try {

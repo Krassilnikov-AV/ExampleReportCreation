@@ -18,7 +18,7 @@ public class ConfigurateApp {
 	private String databasePassword;
 	private String databaseUrl;
 
-	private void init() throws IOException {
+	public  void init() throws IOException {
 
 		Properties ps = new Properties();
 
@@ -84,6 +84,6 @@ public class ConfigurateApp {
 
 	@Override
 	public String toString() {
-		return getDatabaseDriver() + getDatabaseHost() + getDatabasePort();
+		return getDatabaseDriver() + getDatabaseHost() + getDatabasePort() + getDatabaseName();
 	}
 }
