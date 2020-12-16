@@ -47,32 +47,32 @@ public class ConfigurateApp {
 				path = ps.getProperty("pathStorage");
 			}
 		}
+		catch (IOException e) {
+			System.out.println("не получили данные..." + e);
+		}
 	}
 
 	public String getPath() {
 		return path;
 	}
 
-	public String getDatabaseUrl() {
-		return databaseUrl =
-			databaseDriver + "://" + databaseHost + ":" + databasePort + "/" + databaseName;
-	}
-//
-//    public String getDatabaseDriver() {
-//        return databaseDriver;
-//    }
-//
-//    public String getDatabaseHost() {
-//        return databaseHost;
-//    }
-//
-//    public String getDatabasePort() {
-//        return databasePort;
-//    }
-//
-//    public String getDatabaseName() {
-//        return databaseName;
-//    }
+
+
+    public String getDatabaseDriver() {
+        return databaseDriver;
+    }
+
+    public String getDatabaseHost() {
+        return databaseHost;
+    }
+
+    public String getDatabasePort() {
+        return databasePort;
+    }
+
+    public String getDatabaseName() {
+        return databaseName;
+    }
 
 	public String getDatabaseUser() {
 		return databaseUser;
@@ -84,6 +84,6 @@ public class ConfigurateApp {
 
 	@Override
 	public String toString() {
-		return getDatabaseUrl();
+		return getDatabaseDriver() + getDatabaseHost() + getDatabasePort();
 	}
 }
