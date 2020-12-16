@@ -9,7 +9,6 @@ import doc.ReadExcelData;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,11 +25,10 @@ public class ExampleConnection {
 //	private static String USERNAME = "postgres";
 //	private static String PASSWORD = "alex159";
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, IOException {
 //		insertQuerySQL();
 //		viewData();
-		getPostConnection();
-		System.out.println("соединение установлено");
+		System.out.println(conf.getDatabaseName());
 	}
 
 	/*
@@ -41,14 +39,14 @@ public class ExampleConnection {
         System.out.println("есть url...");
         return url;
 }*/
-	public static String getURL() {
+	private static String getURL() {
 		String databaseDriver = conf.getDatabaseDriver();
 		String databaseHost = conf.getDatabaseHost();
 		String databasePort = conf.getDatabasePort();
 		String databaseName = conf.getDatabaseName();
 
-		String url =
-			databaseDriver.concat("://").concat(databaseHost).concat(":").concat(databasePort).concat("/").concat(databaseName);
+		String url = null;
+			url.concat(databaseDriver).concat("://").concat(databaseHost).concat(":").concat(databasePort).concat("/").concat(databaseName);
 		return url;
 	}
 

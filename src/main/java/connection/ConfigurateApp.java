@@ -18,11 +18,11 @@ public class ConfigurateApp {
 	private String databasePassword;
 	private String databaseUrl;
 
-	public  void init() throws IOException {
-
+	public  Properties init() throws IOException {
+		final String CONFIG = "src\\main\\java\\resources\\config.properties";
 		Properties ps = new Properties();
 
-		try (FileInputStream fs = new FileInputStream("config.properties")) {
+		try (FileInputStream fs = new FileInputStream(CONFIG)) {
 			ps.load(fs);
 
 			if (ps.getProperty("database.host").length() > 0) {
@@ -46,10 +46,11 @@ public class ConfigurateApp {
 			if (ps.getProperty("pathStorage").length() > 0) {
 				path = ps.getProperty("pathStorage");
 			}
+			return ps;
 		}
-		catch (IOException e) {
-			System.out.println("не получили данные..." + e);
-		}
+//		catch (IOException e) {
+//			System.out.println("не получили данные..." + e);
+//		}
 	}
 
 	public String getPath() {
@@ -82,8 +83,18 @@ public class ConfigurateApp {
 		return databasePassword;
 	}
 
-	@Override
-	public String toString() {
-		return getDatabaseDriver() + getDatabaseHost() + getDatabasePort() + getDatabaseName();
+	/**
+	 * Возвращает
+	 *
+	 * @return
+	 */
+	public String getDatabaseUrl() {
+		return databaseUrl;
 	}
+
+
+//	@Override
+//	public String toString() {
+//		return getDatabaseDriver() + getDatabaseHost() + getDatabasePort() + getDatabaseName();
+//	}
 }
