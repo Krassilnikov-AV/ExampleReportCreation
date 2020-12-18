@@ -21,10 +21,6 @@ public class ExampleConnection {
 	static PreparedStatement stm = null;
 	static ConfigurateApp conf = new ConfigurateApp();
 
-//	private static String URL = "jdbc:postgresql://localhost:5432/test";
-//	private static String USERNAME = "postgres";
-//	private static String PASSWORD = "alex159";
-
 	public static void main(String[] args) throws SQLException, IOException {
 //		insertQuerySQL();
 //		viewData();
