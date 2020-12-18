@@ -18,8 +18,9 @@ public class ExampleConnection {
 
 	static Connection conn = null;
 	static String SQL = "";
-	static PreparedStatement stm = null;
 	static ConfigurateApp conf = new ConfigurateApp();
+	static Connection connection = null;
+	static int result = 0;
 
 	public static void main(String[] args) throws SQLException, IOException {
 //		insertQuerySQL();
@@ -28,8 +29,11 @@ public class ExampleConnection {
 		System.out.println(conf.getDatabaseName());
 		System.out.println(getURL());
 //		getPostConnection();
-		insertQuerySQL();
+//		insertQuerySQL();
 //		viewData();
+		ExampleConnection exampleConnection = new ExampleConnection();
+
+		exampleConnection.deletedDataSQL();
 	}
 
 	/*
@@ -45,11 +49,12 @@ public class ExampleConnection {
 		return url;
 	}
 
-	public static Connection getPostConnection() throws SQLException {
-
+	public static Connection getPostConnection() throws SQLException, IOException {
 		System.out.println("Устанавливаем соединение с БД...");
-		final Connection connection;
-		connection = DriverManager.getConnection(getURL(), conf.getDatabaseUser(), conf.getDatabasePassword());
+		conf.init();
+		connection = DriverManager.getConnection(getURL(),
+			conf.getDatabaseUser(),
+			conf.getDatabasePassword());
 		return connection;
 	}
 
@@ -59,16 +64,17 @@ public class ExampleConnection {
 	public static void insertQuerySQL() throws SQLException {
 		//запрос на внесение прочитанных данных в столбец
 		String SQLinsert = "insert into contact(person) values (?)";
-		try {
-			Connection connection = getPostConnection();
-			stm = connection.prepareStatement(SQLinsert);
-			ReadExcelData read = new ReadExcelData();
-			List<String> list = read.getDataStringIntegerDate(4);
+		try (Connection connection = getPostConnection()) {
+			try (PreparedStatement stm = connection.prepareStatement(SQLinsert)) {
 
-			for (String value : list) {
-				stm.setString(0, value);
-				stm.addBatch();
-				stm.executeUpdate();
+				ReadExcelData read = new ReadExcelData();
+				List<String> list = read.getDataStringIntegerDate(4);
+
+				for (String value : list) {
+					stm.setString(1, value);
+					stm.addBatch();
+					stm.executeUpdate();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,26 +88,40 @@ public class ExampleConnection {
 	метод для просмотра внесённых данных в таблицу
 	*/
 	private static void viewData() throws SQLException {
-		ResultSet result = null;
+		String SQLselect = "SELECT contact FROM raspisanie";
+		try (Connection connection = getPostConnection()) {
+			try (PreparedStatement stm = connection.prepareStatement(SQLselect)) {
+				ResultSet result =
+					stm.executeQuery(SQLselect);
+				while (result.next()) {
+					String value = result.getString("value");
+					System.out.println(value);
+				}
 
-		// запрос просмотра данных в столбце
-		SQL = "SELECT contact FROM raspisanie";
-		try {
-			stm = conn.prepareStatement(SQL);
-			result = stm.executeQuery();
-			while (result.next()) {
-				String value = result.getString("value");
-				System.out.println(value);
+				System.out.println("Закрыли соединение с БД после просмотра данных...");
 			}
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			conn.close();
-			System.out.println("Закрыли соединение с БД после просмотра данных...");
 		}
 	}
+
 	/*
 	метод для удаления внесённых данных в таблицу
 	*/
+		private int deletedDataSQL () throws SQLException {
+			String SQLDeleted = "DELETE FROM contact";
+			try (Connection connection = getPostConnection()) {
+				try(PreparedStatement stm = connection.prepareStatement(SQLDeleted)) {
+					int rs = stm.executeUpdate();
+				}
+				return stm.executeUpdate();
 
-}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				conn.close();
+				System.out.println("Закрыли соединение с БД после удаления данных...");
+			}
+			return 0;
+		}
+	}
