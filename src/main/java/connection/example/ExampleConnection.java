@@ -108,20 +108,17 @@ public class ExampleConnection {
 	/*
 	метод для удаления внесённых данных в таблицу
 	*/
-		private int deletedDataSQL () throws SQLException {
-			String SQLDeleted = "DELETE FROM contact";
-			try (Connection connection = getPostConnection()) {
-				try(PreparedStatement stm = connection.prepareStatement(SQLDeleted)) {
-					int rs = stm.executeUpdate();
-				}
+	private int deletedDataSQL() throws SQLException {
+		String SQLDeleted = "DELETE FROM contact";
+		try (Connection connection = getPostConnection()) {
+			System.out.println("Соединение установлено...");
+			try (PreparedStatement stm = connection.prepareStatement(SQLDeleted)) {
 				return stm.executeUpdate();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				conn.close();
-				System.out.println("Закрыли соединение с БД после удаления данных...");
 			}
-			return 0;
+
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		return 0;
 	}
+}
