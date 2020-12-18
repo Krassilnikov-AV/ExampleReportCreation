@@ -18,8 +18,9 @@ public class ConfigurateApp {
 	private String databasePassword;
 	private String databaseUrl;
 
-	public  Properties init() throws IOException {
-		final String CONFIG = "src\\main\\java\\resources\\config.properties";
+	public  void init() throws IOException {
+		final String CONFIG;
+		CONFIG = "src/main/java/resources/config.properties";
 		Properties ps = new Properties();
 
 		try (FileInputStream fs = new FileInputStream(CONFIG)) {
@@ -43,10 +44,10 @@ public class ConfigurateApp {
 			if (ps.getProperty("database.password").length() > 0) {
 				databasePassword = ps.getProperty("database.password");
 			}
-			if (ps.getProperty("pathStorage").length() > 0) {
-				path = ps.getProperty("pathStorage");
-			}
-			return ps;
+//			if (ps.getProperty("pathStorage").length() > 0) {
+//				path = ps.getProperty("pathStorage");
+//			}
+//			return ps;
 		}
 //		catch (IOException e) {
 //			System.out.println("не получили данные..." + e);
@@ -56,8 +57,6 @@ public class ConfigurateApp {
 	public String getPath() {
 		return path;
 	}
-
-
 
     public String getDatabaseDriver() {
         return databaseDriver;
@@ -71,9 +70,7 @@ public class ConfigurateApp {
         return databasePort;
     }
 
-    public String getDatabaseName() {
-        return databaseName;
-    }
+    public String getDatabaseName() { return databaseName;  }
 
 	public String getDatabaseUser() {
 		return databaseUser;
@@ -93,8 +90,8 @@ public class ConfigurateApp {
 	}
 
 
-//	@Override
-//	public String toString() {
-//		return getDatabaseDriver() + getDatabaseHost() + getDatabasePort() + getDatabaseName();
-//	}
+	@Override
+	public String toString() {
+		return path + databaseDriver + databaseHost + databasePort + databaseName + databaseUser + databasePassword;
+	}
 }

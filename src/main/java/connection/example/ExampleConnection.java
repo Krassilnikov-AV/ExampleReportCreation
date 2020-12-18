@@ -28,7 +28,9 @@ public class ExampleConnection {
 	public static void main(String[] args) throws SQLException, IOException {
 //		insertQuerySQL();
 //		viewData();
+		conf.init();
 		System.out.println(conf.getDatabaseName());
+		System.out.println(getURL());
 	}
 
 	/*
@@ -45,8 +47,7 @@ public class ExampleConnection {
 		String databasePort = conf.getDatabasePort();
 		String databaseName = conf.getDatabaseName();
 
-		String url = null;
-			url.concat(databaseDriver).concat("://").concat(databaseHost).concat(":").concat(databasePort).concat("/").concat(databaseName);
+		String url = databaseDriver.concat("://").concat(databaseHost).concat(":").concat(databasePort).concat("/").concat(databaseName);
 		return url;
 	}
 
