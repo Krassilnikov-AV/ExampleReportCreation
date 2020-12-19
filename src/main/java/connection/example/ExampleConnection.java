@@ -16,30 +16,23 @@ import java.util.List;
  */
 public class ExampleConnection {
 
-	static Connection conn = null;
-	static String SQL = "";
-	static ConfigurateApp conf = new ConfigurateApp();
-	static Connection connection = null;
-	static int result = 0;
-
+//	static Connection conn = null;
+//	static String SQL = "";
+//	static
+static ConfigurateApp conf = new ConfigurateApp();
 	public static void main(String[] args) throws SQLException, IOException {
-//		insertQuerySQL();
-//		viewData();
-		conf.init();
-		System.out.println(conf.getDatabaseName());
-		System.out.println(getURL());
-//		getPostConnection();
-//		insertQuerySQL();
-//		viewData();
 		ExampleConnection exampleConnection = new ExampleConnection();
+		ExampleSQLQuery exampleSQLQuery = new ExampleSQLQuery();
 
-		exampleConnection.deletedDataSQL();
+		exampleConnection.getNameURL();
+		exampleSQLQuery.insertQuerySQL();
+		exampleSQLQuery.deletedDataSQL();
 	}
 
 	/*
 	метод, который возвращает url базы данных, прописанной в property файле
 }*/
-	private static String getURL() {
+	private String getURL() {
 		String databaseDriver = conf.getDatabaseDriver();
 		String databaseHost = conf.getDatabaseHost();
 		String databasePort = conf.getDatabasePort();
@@ -49,76 +42,18 @@ public class ExampleConnection {
 		return url;
 	}
 
-	public static Connection getPostConnection() throws SQLException, IOException {
+	public Connection getPostConnection() throws SQLException, IOException {
 		System.out.println("Устанавливаем соединение с БД...");
 		conf.init();
-		connection = DriverManager.getConnection(getURL(),
+		Connection connection = DriverManager.getConnection(getURL(),
 			conf.getDatabaseUser(),
 			conf.getDatabasePassword());
 		return connection;
 	}
 
-	/*
-	    метод для внесения данных в таблицу выбранных с таблицы Excel
-	 */
-	public static void insertQuerySQL() throws SQLException {
-		//запрос на внесение прочитанных данных в столбец
-		String SQLinsert = "insert into contact(person) values (?)";
-		try (Connection connection = getPostConnection()) {
-			try (PreparedStatement stm = connection.prepareStatement(SQLinsert)) {
-
-				ReadExcelData read = new ReadExcelData();
-				List<String> list = read.getDataStringIntegerDate(4);
-
-				for (String value : list) {
-					stm.setString(1, value);
-					stm.addBatch();
-					stm.executeUpdate();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			//	conn.close();
-			System.out.println("Закрыли соединение с БД после внесения данных...");
-		}
-	}
-
-	/*
-	метод для просмотра внесённых данных в таблицу
-	*/
-	private static void viewData() throws SQLException {
-		String SQLselect = "SELECT contact FROM raspisanie";
-		try (Connection connection = getPostConnection()) {
-			try (PreparedStatement stm = connection.prepareStatement(SQLselect)) {
-				ResultSet result =
-					stm.executeQuery(SQLselect);
-				while (result.next()) {
-					String value = result.getString("value");
-					System.out.println(value);
-				}
-
-				System.out.println("Закрыли соединение с БД после просмотра данных...");
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/*
-	метод для удаления внесённых данных в таблицу
-	*/
-	private int deletedDataSQL() throws SQLException {
-		String SQLDeleted = "DELETE FROM contact";
-		try (Connection connection = getPostConnection()) {
-			System.out.println("Соединение установлено...");
-			try (PreparedStatement stm = connection.prepareStatement(SQLDeleted)) {
-				return stm.executeUpdate();
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return 0;
+	private void getNameURL() throws IOException {
+		conf.init();
+		System.out.println("Название базы данных: " + conf.getDatabaseName());
+		System.out.println("URL базы данных: " + getURL());
 	}
 }
