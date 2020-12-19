@@ -11,7 +11,9 @@ import java.sql.*;
 import java.util.List;
 
 /**
- * Класс ExampleSQLQuery
+ * Класс ExampleSQLQuery, содержит методы для работы с базой данных,
+ * соединение с которой получено в классе ExampleConnection
+ *
  */
 public class ExampleSQLQuery {
 

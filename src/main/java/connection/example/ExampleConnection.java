@@ -12,14 +12,13 @@ import java.sql.*;
 import java.util.List;
 
 /**
- * Класс ExampleConnection
+ * Класс ExampleConnection, устанавливает соединение с базой данных
+ * прописывает название и URL базы данных
  */
 public class ExampleConnection {
 
-//	static Connection conn = null;
-//	static String SQL = "";
-//	static
-static ConfigurateApp conf = new ConfigurateApp();
+	static ConfigurateApp conf = new ConfigurateApp();
+
 	public static void main(String[] args) throws SQLException, IOException {
 		ExampleConnection exampleConnection = new ExampleConnection();
 		ExampleSQLQuery exampleSQLQuery = new ExampleSQLQuery();
