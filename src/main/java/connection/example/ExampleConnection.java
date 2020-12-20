@@ -24,7 +24,7 @@ public class ExampleConnection {
 		ExampleSQLQuery exampleSQLQuery = new ExampleSQLQuery();
 
 		exampleConnection.getNameURL();
-		exampleSQLQuery.insertQuerySQL();
+//		exampleSQLQuery.insertQuerySQL();
 		exampleSQLQuery.deletedDataSQL();
 	}
 
