@@ -26,6 +26,7 @@ public class ExampleSQLQuery {
 	String deletedSQL = "DELETE FROM contact";
 
 /**
+ * ЗАДАНИЕ
  * нужно List<<int><int><string><date><time><date><time><string><string>>
  */
 	ExampleConnection exmpCon = new ExampleConnection();
