@@ -13,13 +13,21 @@ import java.util.List;
 /**
  * Класс ExampleSQLQuery, содержит методы для работы с базой данных,
  * соединение с которой получено в классе ExampleConnection
+ * имя БД - schedule
+ * имя таблиц group, person, typeofemployment
+ * имя столбцов д/л group: groupid, groupcode,
+ *    programm, datestart, timestart, dateend,
+ *    timeend, classrum, typelessons
  */
 public class ExampleSQLQuery {
-	String insertSQL = "insert into contact(person) values (?)";
+
+	String insertSQL = "insert into group(groupid) values (?)";
 	String selectSQL = "SELECT contact FROM raspisanie";
 	String deletedSQL = "DELETE FROM contact";
 
-
+/**
+ * нужно List<<int><int><string><date><time><date><time><string><string>>
+ */
 	ExampleConnection exmpCon = new ExampleConnection();
 
 	/*

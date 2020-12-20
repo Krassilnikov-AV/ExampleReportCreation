@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Класс считывающий данные столбца файла Excel в коллекцию List
+ * Класс ReadExcelData считывающий данные столбца файла Excel в коллекцию List
  *
  * @author Aleks
  */
