@@ -5,6 +5,7 @@ import org.apache.poi.xssf.usermodel.*;
 import org.apache.xmlbeans.impl.regex.ParseException;
 
 import java.io.*;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -46,6 +47,23 @@ public class ReadExcelData {
 	String fileName = "Primer_raspisania.xlsx";
 	//String fileName = "fileToRead";
 	private LinkedList<String> columndata;
+	private LinkedList<Integer> groupid;
+	private LinkedList<Integer> groupcode;
+	private LinkedList<String> programm;
+	private LinkedList<Date> datestart;
+	private LinkedList<Time> timestart;
+	private LinkedList<Date> dateend;
+	private LinkedList<Time> timeend;
+	private LinkedList<String> classrum;
+	private LinkedList<String> typelessons;
+
+	/**
+	 * * имя столбцов д/л group: groupid, groupcode,
+	 *  *    programm, datestart, timestart, dateend,
+	 *  *    timeend, classrum, typelessons
+	 */
+//
+//	private LinkedList<<Integer><Integer><String><Date><Time><Date><Time><String><String>> dates;
 
 	public ReadExcelData() {
 		columndata = null;
@@ -60,7 +78,10 @@ public class ReadExcelData {
 		code.getDataTime(ReadExcelData.timeEnd);
 	}
 
-
+/**
+ * ЗАДАНИЕ
+ * нужно List<<int><int><string><date><time><date><time><string><string>>
+ */
 // метод для получения строчных, целочисленных данных и даты в формате "число.месяц.год"
 	/**
 	 * ! добавить метод, который будет получать путь и номер колонки, который вызывается в сервлете

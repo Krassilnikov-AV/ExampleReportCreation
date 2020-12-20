@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2020 Tander, All Rights Reserved.
  */
-
 package connection.example;
 
 import doc.ReadExcelData;
@@ -22,13 +21,13 @@ import java.util.List;
 public class ExampleSQLQuery {
 
 	String insertSQL = "insert into group(groupid) values (?)";
-	String selectSQL = "SELECT contact FROM raspisanie";
-	String deletedSQL = "DELETE FROM contact";
+	String selectSQL = "SELECT programm FROM schedule";
+	String deletedSQL = "DELETE FROM group";
 
-/**
- * ЗАДАНИЕ
- * нужно List<<int><int><string><date><time><date><time><string><string>>
- */
+	/**
+	 * ЗАДАНИЕ
+	 * нужно List<<int><int><string><date><time><date><time><string><string>>
+	 */
 	ExampleConnection exmpCon = new ExampleConnection();
 
 	/*
