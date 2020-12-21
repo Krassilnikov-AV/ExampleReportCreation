@@ -18,7 +18,7 @@ import java.util.*;
  * excel файла для всавки в отчёт расписание
  */
 public class ExReadExcelColums {
-
+	final static int divID = 1;   // ID подразделения (число)
 	/**
 	 *
 	 * @param args
@@ -26,7 +26,6 @@ public class ExReadExcelColums {
 	 */
 	// выбрать столбец для чтения данных (для проверки/тестировниая)
 	final static int code = 0;    // код (строка)
-	final static int divID = 1;   // ID подразделения (число)
 	final static int gpoupID = 2;   // ID группы  (число)
 	final static int codeGroup = 3;   //+1 код группы  (число)
 	final static int group = 4;   // название группы (строка)
@@ -47,9 +46,11 @@ public class ExReadExcelColums {
 	final static int academHour = 19;   // академических часов (число)
 	final static int academRecord = 20;   // академических записей (число)
 
+
 	String fileName = "Primer_raspisania.xlsx";
 	//String fileName = "fileToRead";
 	private LinkedList<String> columndata;
+
 	private LinkedList<Integer> groupid;
 	private LinkedList<Integer> groupcode;
 	private LinkedList<String> programm;
@@ -91,7 +92,7 @@ public class ExReadExcelColums {
 	 * @param groupid
 	 * @return
 	 */
-	public List<Integer> getDataStringIntegerDate(int columnDataStart, int datestart)  {
+	public LinkedList<String> getDataStringIntegerDate(int groupID) {
 
 		try (File f = new File(fileName)) {
 			try (FileInputStream ios = new FileInputStream(f)) {
@@ -108,13 +109,14 @@ public class ExReadExcelColums {
 					Cell cell = cellIterator.next();
 
 					if (row.getRowNum() > 0) {                 //отсечение первой строки (название столбцов)
-						if (cell.getColumnIndex() == columnDataStart) {// соответствие индекса столбца
-							switch (cell.getCellType()) {
+						if (cell.getColumnIndex() == groupID)
+						// соответствие индекса столбцаs
+							 witch (cell.getCellType()) {
 								case Cell.CELL_TYPE_NUMERIC:
 									String date = "dd.MM.yyyy";
 									if (DateUtil.isCellDateFormatted(cell)) {  // получение данных даты
 										SimpleDateFormat sdfDate = new SimpleDateFormat(date);
-										groupid.add(sdfDate.format(cell.getCellFormula()); //.add(sdfDate.format
+										datestart.add(sdfDate.format(cell.getCellFormula())); //.add(sdfDate.format
 										// (cell.getDateCellValue()));
 									} else { // получение целочисленных данных
 										groupid.add(cell.getCellType()); // .getNumericCellValue() + "");
@@ -138,6 +140,7 @@ public class ExReadExcelColums {
 			e.printStackTrace();
 		}
 		return columndata;
+	}
 	}
 // метод для получения данных даты в формате "ЧАСы : минуты"
 
