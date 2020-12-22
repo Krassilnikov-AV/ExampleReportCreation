@@ -4,6 +4,8 @@
 
 package connection.example;
 
+import doc.ReadExcelData;
+
 import java.sql.Time;
 import java.util.*;
 
@@ -12,7 +14,7 @@ import java.util.*;
  * и подготовки к считыванию в классе  ExReadExcelColums
  */
 public class ExScheduleToTable {
-
+/**
 	// выбрать столбец для чтения данных (для проверки/тестировниая)
 	final static int code = 0;    // код (строка)
 	final static int divID = 1;   // ID подразделения (число)
@@ -35,22 +37,47 @@ public class ExScheduleToTable {
 	final static int periodDay = 18;   // период дней(число)
 	final static int academHour = 19;   // академических часов (число)
 	final static int academRecord = 20;   // академических записей (число)
+*/
+	private List<Integer> groupid;
+	private List<Integer> groupcode;
+	private List<Integer> valInt;
+	/**
+	 * Возвращает
+	 *
+	 * @return
+	 */
+	public List<Integer> getvalInt() {
+		return valInt;
+	}
 
-	private List<Integer> groupid = new LinkedList<>();
-	private List<Integer> groupcode = new LinkedList<>();
-	private List<String> programm = new LinkedList<>();
+	/**
+	 * Устанавливает
+	 *
+	 * @param AbstractElement{name='Int', isArray=false, isPrimitiveArray=false, isObjectArray=false, isStringArray=false, isCollection=true, isMap=false, isSet=false, isList=true, isPrimitive=false, isString=false, isNumeric=false, isObject=true, isDate=false, isCalendar=false, isBoolean=false, isLong=false, isFloat=false, isDouble=false, isVoid=false, isChar=false, isByte=false, isShort=false, typeName='Integer>', type='java.util.List<java.lang.Integer>', typeQualifiedName='java.util.List<java.lang.Integer>', isModifierStatic=false, isModifierPublic=false, isModifierProtected=false, isModifierPackageLocal=false, isModifierPrivate=true, isModifierFinal=false} ::: FieldElement{isConstant=false, isEnum=false, isModifierTransient=false, isModifierVolatile=false}
+	 */
+	public void setvalInt(List<Integer> anInt) {
+		valInt = anInt;
+	}
+
+	private List<String> programm;
 	private List<Date> datestart;
+
 	private List<Time> timestart;
 	private List<Date> dateend;
 	private List<Time> timeend;
 	private List<String> classrum;
 	private List<String> typelessons;
 
+
 	/**
 	 * Возвращает
 	 *
 	 * @return
 	 */
+	public void run() {
+		System.out.println("Hello");
+	}
+
 	public List<Integer> getGroupid() {
 		return groupid;
 	}

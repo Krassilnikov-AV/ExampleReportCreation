@@ -17,64 +17,28 @@ import java.util.*;
  * Класс ExReadExcelColums - класс, считывающий необходимые колонки с
  * excel файла для всавки в отчёт расписание
  */
-public class ExReadExcelColums {
+public class ExReadExcelColum {
 	final static int divID = 1;   // ID подразделения (число)
 	/**
-	 *
 	 * @param args
 	 * @throws IOException
 	 */
-	// выбрать столбец для чтения данных (для проверки/тестировниая)
-	final static int code = 0;    // код (строка)
-	final static int gpoupID = 2;   // ID группы  (число)
-	final static int codeGroup = 3;   //+1 код группы  (число)
-	final static int group = 4;   // название группы (строка)
-	final static int dateStart = 5;   // +3 дата начала (дата)
-	final static int timeStart = 6;   // +4 время начала (время)
-	final static int dateEnd = 7;   // +5 дата завершения (дата)
-	final static int timeEnd = 8;   // +6 время завершения (время)
-	final static int classID = 9;   // ID аудитории (число)
-	final static int clasRum = 10;   // +7 №аудитории или вариант (ОнЛайн) (число/строка)
-	final static int typeLearn = 11;   // +8 тип занятия (строка)
-	final static int codeDirectionProgramm = 12;   // код-направление-программа (число-строка)
-	final static int courseID = 13;   // +2.1 ID курса (число) -
-	final static int discipline = 14;   // +2 предмет/дисциплина/программа (число/строка)
-	final static int period = 15;   // период (число)
-	final static int teacherID = 16;   // ID преподавателя (число)
-	final static int teacher = 17;   // +9 преподаватель (строка)
-	final static int periodDay = 18;   // период дней(число)
-	final static int academHour = 19;   // академических часов (число)
-	final static int academRecord = 20;   // академических записей (число)
 
 
 	String fileName = "Primer_raspisania.xlsx";
 	//String fileName = "fileToRead";
 	private LinkedList<String> columndata;
 
-	private LinkedList<Integer> groupid;
-	private LinkedList<Integer> groupcode;
-	private LinkedList<String> programm;
-	private LinkedList<Date> datestart;
-	private LinkedList<Time> timestart;
-	private LinkedList<Date> dateend;
-	private LinkedList<Time> timeend;
-	private LinkedList<String> classrum;
-	private LinkedList<String> typelessons;
 
 	/**
 	 * * имя столбцов д/л group: groupid, groupcode,
-	 *  *    programm, datestart, timestart, dateend,
-	 *  *    timeend, classrum, typelessons
+	 * *    programm, datestart, timestart, dateend,
+	 * *    timeend, classrum, typelessons
 	 */
 //
 //	private LinkedList<<Integer><Integer><String><Date><Time><Date><Time><String><String>> dates;
 
-	public ReadExcelData() {
-		columndata = null;
-	}
-
 // основной метод класса для проверки считывания данных с таблицы
-
 	public static void main(String[] args) throws IOException {
 
 		ReadExcelData code = new ReadExcelData();
@@ -87,48 +51,115 @@ public class ExReadExcelColums {
  * нужно List<<int><int><string><date><time><date><time><string><string>>
  */
 // метод для получения строчных, целочисленных данных и даты в формате "число.месяц.год"
+
 	/**
 	 * ! добавить метод, который будет получать путь и номер колонки, который вызывается в сервлете
+	 *
 	 * @param groupid
 	 * @return
 	 */
-	public LinkedList<String> getDataStringIntegerDate(int groupID) {
+// выбрать столбец для чтения данных (для проверки/тестировниая)
+	final int code = 0;    // код (строка)
+	final int gpoupID = 2;   // ID группы  (число)
+	final int codeGroup = 3;   //+1 код группы  (число)
+	final int group = 4;   // название группы (строка)
+	final int dateStart = 5;   // +3 дата начала (дата)
+	final int timeStart = 6;   // +4 время начала (время)
+	final int dateEnd = 7;   // +5 дата завершения (дата)
+	final int timeEnd = 8;   // +6 время завершения (время)
+	final int classID = 9;   // ID аудитории (число)
+	final int clasRum = 10;   // +7 №аудитории или вариант (ОнЛайн) (число/строка)
+	final int typeLearn = 11;   // +8 тип занятия (строка)
+	final int codeDirectionProgramm = 12;   // код-направление-программа (число-строка)
+	final int courseID = 13;   // +2.1 ID курса (число) -
+	final int discipline = 14;   // +2 предмет/дисциплина/программа (число/строка)
+	final int period = 15;   // период (число)
+	final int teacherID = 16;   // ID преподавателя (число)
+	final int teacher = 17;   // +9 преподаватель (строка)
+	final int periodDay = 18;   // период дней(число)
+	final int academHour = 19;   // академических часов (число)
+	final int academRecord = 20;   // академических записей (число)
 
-		try (File f = new File(fileName)) {
-			try (FileInputStream ios = new FileInputStream(f)) {
-			XSSFWorkbook workbook = new XSSFWorkbook(ios);    // получили файл
-			XSSFSheet sheet = workbook.getSheetAt(0);   // получили страницу
-//проход итератером по строке 
-			Iterator<Row> rowIterator = sheet.iterator();  //  
-			groupid = new LinkedList<Integer>();
+	private LinkedList<Integer> groupid;
+	private LinkedList<Integer> groupcode;
+	private LinkedList<String> programm;
+	private LinkedList<Date> datestart;
+	private LinkedList<Time> timestart;
+	private LinkedList<Date> dateend;
+	private LinkedList<Time> timeend;
+	private LinkedList<String> classrum;
+	private LinkedList<String> typelessons;
+
+	public ExScheduleToTable getDataStringIntegerDate(int groupID, int codeGroup,
+													  int discipline, int dateStart, int timeStart,
+													  int dateEnd, int timeEnd, int clasRum, int typeLearn) {
+		ExScheduleToTable exsch = new ExScheduleToTable();
+
+		try {
+			File f = new File(fileName);
+			FileInputStream ios = new FileInputStream(f);
+			XSSFWorkbook workbook = new XSSFWorkbook(ios);
+			XSSFSheet sheet = workbook.getSheetAt(0);
+			Iterator<Row> rowIterator = sheet.iterator();
+			//	columndata = new LinkedList<String>();
+
 			while (rowIterator.hasNext()) {
 				Row row = rowIterator.next();
 				Iterator<Cell> cellIterator = row.cellIterator();
-				// проверка на тип ячейки в строке
 				while (cellIterator.hasNext()) {
 					Cell cell = cellIterator.next();
 
-					if (row.getRowNum() > 0) {                 //отсечение первой строки (название столбцов)
-						if (cell.getColumnIndex() == groupID)
-						// соответствие индекса столбцаs
-							 witch (cell.getCellType()) {
-								case Cell.CELL_TYPE_NUMERIC:
-									String date = "dd.MM.yyyy";
-									if (DateUtil.isCellDateFormatted(cell)) {  // получение данных даты
-										SimpleDateFormat sdfDate = new SimpleDateFormat(date);
-										datestart.add(sdfDate.format(cell.getCellFormula())); //.add(sdfDate.format
-										// (cell.getDateCellValue()));
-									} else { // получение целочисленных данных
-										groupid.add(cell.getCellType()); // .getNumericCellValue() + "");
-									}
-									break;
-								case Cell.CELL_TYPE_STRING: // получение строчных данных
-									groupid.add(cell.getStringCellValue());
-									break;
-							}
+					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
+						if (cell.getColumnIndex() == groupID) {
+							exsch.getGroupid().add(cell.getCellType());
 						}
+						if (cell.getColumnIndex() == codeGroup) {
+							exsch.getGroupcode().add(cell.getCellType());
+						}
+						if (cell.getColumnIndex() == groupID) {
+							exsch.getGroupid().add(cell.getCellType());
+						}
+						if (cell.getColumnIndex() == discipline) {
+							exsch.getClassrum().add(cell.getStringCellValue());
+						}
+						if (cell.getColumnIndex() == dateStart) {
+							exsch.getDatestart().add(cell.getDateCellValue());
+						}
+						if (cell.getColumnIndex() == dateEnd) {
+							exsch.getDatestart().add(cell.getDateCellValue());
+						}
+						if (cell.getColumnIndex() == timeStart) {
+							String time = "hh:mm";
+							SimpleDateFormat sdfDate = new SimpleDateFormat(time);
+							exsch.getTimestart().add((Time) sdfDate.get2DigitYearStart());
+						}
+						if (cell.getColumnIndex() == timeEnd) {
+							String time = "hh:mm";
+							SimpleDateFormat sdfDate = new SimpleDateFormat(time);
+							exsch.getTimestart().add((Time) sdfDate.get2DigitYearStart());
+						}
+
+//						if (cell.getColumnIndex() == groupID) {// соответствие индекса столбца
+//							switch (cell.getCellType()) {
+//								case Cell.CELL_TYPE_NUMERIC:
+//									String date = "dd.MM.yyyy";
+//									if (DateUtil.isCellDateFormatted(cell)) {  // получение данных даты
+//										SimpleDateFormat sdfDate = new SimpleDateFormat(date);
+//										exsch.getDatestart().add(sdfDate.get2DigitYearStart());
+//									} else {
+//										// получение целочисленных данных
+//										exsch.getGroupid().add(cell.getCellType());
+//										//columndata.add((int) cell.getNumericCellValue() + "");
+//									} else {
+//										exsch.getGroupcode().add(cell..getCellType());
+//								}
+//									break;
+//								case Cell.CELL_TYPE_STRING: // получение строчных данных
+//									columndata.add(cell.getStringCellValue());
+//									break;
+//							}
+//						}
 					}
-					
 				}
 			}
 			ios.close();
@@ -141,7 +172,7 @@ public class ExReadExcelColums {
 		}
 		return columndata;
 	}
-	}
+
 // метод для получения данных даты в формате "ЧАСы : минуты"
 
 	public List<String> getDataTime(int columnIndex) throws ParseException {
@@ -164,7 +195,8 @@ public class ExReadExcelColums {
 							switch (cell.getCellType()) {
 								case Cell.CELL_TYPE_NUMERIC:
 									String time = "HH:mm";
-									if (DateUtil.isCellDateFormatted(cell)) {// получение данных времени
+									if (DateUtil.isCellDateFormatted(cell)) {
+										// получение данных времени
 										SimpleDateFormat sdfTime = new SimpleDateFormat(time, Locale.UK);
 										columndata.add(sdfTime.format(cell.getDateCellValue()));
 									}
