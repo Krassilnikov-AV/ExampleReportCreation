@@ -17,7 +17,7 @@ import java.util.*;
  * Класс ExReadExcelColums - класс, считывающий необходимые колонки с
  * excel файла для всавки в отчёт расписание
  */
-public class ExReadExcelColum {
+public class ExReadExcelColums {
 	/**
 	 * @param args
 	 * @throws IOException
@@ -64,7 +64,7 @@ public class ExReadExcelColum {
 	//	ReadExcelData code = new ReadExcelData();
 		//	code.getDataStringIntegerDate(doc.ReadExcelData.timeEnd);
 		//code.getDataTime(ReadExcelData.timeEnd);
-		ExReadExcelColum exr = new ExReadExcelColum();
+		ExReadExcelColums exr = new ExReadExcelColums();
 		exr.getDataStringIntegerDate(3, 14, 5,
 			6, 7, 8, 10, 11);
 
@@ -79,8 +79,6 @@ public class ExReadExcelColum {
 	/**
 	 * ! добавить метод, который будет получать путь и номер колонки, который вызывается в сервлете
 	 *
-	 * @param groupid
-	 * @return
 	 */
 
 	private LinkedList<Integer> groupid;
