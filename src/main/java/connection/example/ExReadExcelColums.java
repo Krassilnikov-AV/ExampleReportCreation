@@ -61,12 +61,17 @@ public class ExReadExcelColums {
 // основной метод класса для проверки считывания данных с таблицы
 	public static void main(String[] args) throws IOException {
 
-	//	ReadExcelData code = new ReadExcelData();
+		//	ReadExcelData code = new ReadExcelData();
 		//	code.getDataStringIntegerDate(doc.ReadExcelData.timeEnd);
 		//code.getDataTime(ReadExcelData.timeEnd);
+//		try {
+//			Integer i1 = new Integer("20349");
+//			System.out.println(i1);
+//		}catch (NumberFormatException e) {
+//			System.err.println("Неверный формат строки!");
+//		}
 		ExReadExcelColums exr = new ExReadExcelColums();
-		exr.getDataStringIntegerDate(3, 14, 5,
-			6, 7, 8, 10, 11);
+		exr.getDataStringIntegerDate(14);
 
 	}
 
@@ -78,7 +83,6 @@ public class ExReadExcelColums {
 
 	/**
 	 * ! добавить метод, который будет получать путь и номер колонки, который вызывается в сервлете
-	 *
 	 */
 
 	private LinkedList<Integer> groupid;
@@ -91,9 +95,11 @@ public class ExReadExcelColums {
 	private LinkedList<String> classrum;
 	private LinkedList<String> typelessons;
 
-	public ExScheduleToTable getDataStringIntegerDate(int codeGroup, int discipline,
-														  int dateStart, int timeStart, int dateEnd,
-														  int timeEnd, int clasRum, int typeLearn) {
+	//	public ExScheduleToTable getDataStringIntegerDate(int discipline,
+//													  int dateStart, int timeStart, int dateEnd,
+//													  int timeEnd, int clasRum, int typeLearn)
+	public ExScheduleToTable getDataStringIntegerDate(int discipline) {
+
 		ExScheduleToTable exsch = new ExScheduleToTable();
 
 		try {
@@ -110,52 +116,58 @@ public class ExReadExcelColums {
 					Cell cell = cellIterator.next();
 
 					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
-
-						if (cell.getColumnIndex() == codeGroup) {
-							exsch.getGroupcode().add(cell.getCellType());
-						}
+//						try {
+//							if (cell.getColumnIndex() == codeGroup) {
+////								String str = ;
+//								Integer int = new Integer(cell.getStringCellValue());
+//								exsch.getGroupcode().add();
+//							}
+//						} catch (NumberFormatException e) {
+//							System.err.println("Неверный формат строки!");
+//						}
 						if (cell.getColumnIndex() == discipline) {
 							exsch.getProgramm().add(cell.getStringCellValue());
 						}
 
-						if (cell.getColumnIndex() == dateStart) {
-							SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
-							exsch.getDatestart().add(sdfDate.get2DigitYearStart());
-						}
-						if (cell.getColumnIndex() == timeStart) {
-							SimpleDateFormat sdfDate = new SimpleDateFormat("hh:mm");
-							exsch.getTimestart().add((Time) sdfDate.get2DigitYearStart());
-						}
+//						if (cell.getColumnIndex() == dateStart) {
+//							SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
+//							exsch.getDatestart().add(sdfDate.get2DigitYearStart());
+//						}
+//						if (cell.getColumnIndex() == timeStart) {
+//							SimpleDateFormat sdfDate = new SimpleDateFormat("hh:mm");
+//							exsch.getTimestart().add((Time) sdfDate.get2DigitYearStart());
+//						}
+//
+//						if (cell.getColumnIndex() == dateEnd) {
+//							SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
+//							exsch.getDatestart().add(sdfDate.get2DigitYearStart());
+//						}
+//						if (cell.getColumnIndex() == timeEnd) {
+//							SimpleDateFormat sdfDate = new SimpleDateFormat("hh:mm");
+//							exsch.getTimeend().add((Time) sdfDate.get2DigitYearStart());
+//						}
 
-						if (cell.getColumnIndex() == dateEnd) {
-							SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
-							exsch.getDatestart().add(sdfDate.get2DigitYearStart());
-						}
-						if (cell.getColumnIndex() == timeEnd) {
-							SimpleDateFormat sdfDate = new SimpleDateFormat("hh:mm");
-							exsch.getTimeend().add((Time) sdfDate.get2DigitYearStart());
-						}
-
-						if (cell.getColumnIndex() == clasRum) {
-							exsch.getClassrum().add(cell.getStringCellValue());
-						}
-						if (cell.getColumnIndex() == typeLearn) {
-							exsch.getClassrum().add(cell.getStringCellValue());
-						}
+//						if (cell.getColumnIndex() == clasRum) {
+//							exsch.getClassrum().add(cell.getStringCellValue());
+//						}
+//						if (cell.getColumnIndex() == typeLearn) {
+//							exsch.getClassrum().add(cell.getStringCellValue());
+//						}
 					}
 				}
 			}
 			ios.close();
-			Iterator itGroupCode = exsch.getGroupcode().iterator();
+//			Iterator itGroupCode = exsch.getGroupcode().iterator();
 			Iterator itProgram = exsch.getProgramm().iterator();
-			Iterator itDateStart = exsch.getDatestart().iterator();
-			Iterator itDateEnd = exsch.getDateend().iterator();
-			while (itGroupCode.hasNext() &&
-				itProgram.hasNext() &&
-				itDateStart.hasNext() &&
-				itDateEnd.hasNext()) {
-				System.out.println(itGroupCode.next()+" "+itProgram+" "+itDateStart+" "+itDateEnd);
-			}
+//			Iterator itDateStart = exsch.getDatestart().iterator();
+//			Iterator itDateEnd = exsch.getDateend().iterator();
+			while (
+				//itGroupCode.hasNext() &&
+				itProgram.hasNext()) //&&
+//				itDateStart.hasNext() &&
+//				itDateEnd.hasNext()) {
+				System.out.println(" " + itProgram + " ");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
