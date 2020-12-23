@@ -74,9 +74,6 @@ public class ExScheduleToTable {
 	 *
 	 * @return
 	 */
-	public void run() {
-		System.out.println("Hello");
-	}
 
 	public List<Integer> getGroupid() {
 		return groupid;
