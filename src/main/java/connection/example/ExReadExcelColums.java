@@ -4,7 +4,6 @@
 
 package connection.example;
 
-import doc.ReadExcelData;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 
@@ -59,7 +58,9 @@ public class ExReadExcelColums {
 //	private LinkedList<<Integer><Integer><String><Date><Time><Date><Time><String><String>> dates;
 
 	static int columnIndex = 0;
-// основной метод класса для проверки считывания данных с таблицы
+	static int columnInt = 1;
+
+	// основной метод класса для проверки считывания данных с таблицы
 	public static void main(String[] args) throws IOException {
 
 		//	ReadExcelData code = new ReadExcelData();
@@ -74,7 +75,7 @@ public class ExReadExcelColums {
 //		ExReadExcelColums exr = new ExReadExcelColums();
 //		exr.getDataStringIntegerDate(14);
 		ExReadExcelColums exr = new ExReadExcelColums();
-		exr.getDataStringIntegerDate(columnIndex);
+		exr.getDataStringIntegerDate(columnIndex, columnInt);
 	}
 
 /**
@@ -88,7 +89,7 @@ public class ExReadExcelColums {
 	 */
 
 	private LinkedList<Integer> groupid;
-	private LinkedList<Integer> groupcode;
+//	private LinkedList<String> groupcode;
 	private LinkedList<String> programm;
 	private LinkedList<Date> datestart;
 	private LinkedList<Time> timestart;
@@ -98,13 +99,23 @@ public class ExReadExcelColums {
 	private LinkedList<String> typelessons;
 
 
-	private LinkedList<String> columndata;
-	List <String> prog=null;
+	//	private LinkedList<String> columndata;
+	List<String> prog = null;
+	private List<Integer> groupcode;
 	ExScheduleToTable exs = new ExScheduleToTable();
 
-	Cell cell=null;
+	Cell cell = null;
+	// переменная, которую возвращает метод  getDataStringIntegerDate(int columnIndex, int columnInt)
+	List<>
 
-	public List<?> getDataStringIntegerDate(int columnIndex)  {
+	/**
+	 *
+	 * метод должен получить определённые номера колонок, вызвать метод, который обработает тип ячейки
+	 * и вернуть считанные данные
+	 */
+
+
+	public List<?> getDataStringIntegerDate(int columnIndex, int columnInt) {
 
 		try {
 			File f = new File(fileName);
@@ -112,18 +123,19 @@ public class ExReadExcelColums {
 			XSSFWorkbook workbook = new XSSFWorkbook(ios);
 			XSSFSheet sheet = workbook.getSheetAt(0);
 			Iterator<Row> rowIterator = sheet.iterator();
-			columndata = new LinkedList<String>();
-			prog = exs.getProgramm();
-			prog = new LinkedList<>();
+//			columndata = new LinkedList<String>();
+			prog = exs.getProgramm();         // пример вызова с экземпляра класса
+			prog = new LinkedList<>();         // созданный в классе
+			groupcode = new LinkedList<String>();
 			while (rowIterator.hasNext()) {
 				Row row = rowIterator.next();
 				Iterator<Cell> cellIterator = row.cellIterator();
 				while (cellIterator.hasNext()) {
-					 cell = cellIterator.next();
+					cell = cellIterator.next();
 
 					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
-					// вставить метод выбора типа данных
-						selectTypeData(columnIndex);
+						// вставить метод выбора типа данных
+						selectTypeData(columnIndex, columnInt);
 					}
 				}
 			}
@@ -138,18 +150,19 @@ public class ExReadExcelColums {
 		return prog;
 	}
 
-	private void selectTypeData(int columnIndex) {
+	//метод для выбора типа данных считываемых с файла
+	private void selectTypeData(int columnIndex, int columnInt) {
 
-		if (cell.getColumnIndex() == columnIndex) {
+		if (cell.getColumnIndex() == columnIndex ||
+			cell.getColumnIndex() == columnInt) {
 			// соответствие индекса столбца
 			switch (cell.getCellType()) {
 				case Cell.CELL_TYPE_NUMERIC:
-					String date = "dd.MM.yyyy";
 					if (DateUtil.isCellDateFormatted(cell)) {  // получение данных даты
-						SimpleDateFormat sdfDate = new SimpleDateFormat(date);
+						SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
 						prog.add(sdfDate.format(cell.getDateCellValue()));
 					} else { // получение целочисленных данных
-						prog.add((int) cell.getNumericCellValue() + "");
+						groupcode.add((int) cell.getNumericCellValue() + "");
 					}
 					break;
 				case Cell.CELL_TYPE_STRING: // получение строчных данных
@@ -236,4 +249,4 @@ public class ExReadExcelColums {
 //			e.printStackTrace();
 //		}
 //		return exsch;
-	}
+}
