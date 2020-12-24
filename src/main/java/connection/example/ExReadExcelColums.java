@@ -99,9 +99,12 @@ public class ExReadExcelColums {
 
 
 	private LinkedList<String> columndata;
+	List <String> prog=null;
+	ExScheduleToTable exs = new ExScheduleToTable();
+
 	Cell cell=null;
 
-	public List<String> getDataStringIntegerDate(int columnIndex)  {
+	public List<?> getDataStringIntegerDate(int columnIndex)  {
 
 		try {
 			File f = new File(fileName);
@@ -110,7 +113,8 @@ public class ExReadExcelColums {
 			XSSFSheet sheet = workbook.getSheetAt(0);
 			Iterator<Row> rowIterator = sheet.iterator();
 			columndata = new LinkedList<String>();
-
+			prog = exs.getProgramm();
+			prog = new LinkedList<>();
 			while (rowIterator.hasNext()) {
 				Row row = rowIterator.next();
 				Iterator<Cell> cellIterator = row.cellIterator();
@@ -124,14 +128,14 @@ public class ExReadExcelColums {
 				}
 			}
 			ios.close();
-			Iterator it = columndata.iterator();
+			Iterator it = prog.iterator();
 			while (it.hasNext()) {
 				System.out.println(it.next());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return columndata;
+		return prog;
 	}
 
 	private void selectTypeData(int columnIndex) {
@@ -143,13 +147,13 @@ public class ExReadExcelColums {
 					String date = "dd.MM.yyyy";
 					if (DateUtil.isCellDateFormatted(cell)) {  // получение данных даты
 						SimpleDateFormat sdfDate = new SimpleDateFormat(date);
-						columndata.add(sdfDate.format(cell.getDateCellValue()));
+						prog.add(sdfDate.format(cell.getDateCellValue()));
 					} else { // получение целочисленных данных
-						columndata.add((int) cell.getNumericCellValue() + "");
+						prog.add((int) cell.getNumericCellValue() + "");
 					}
 					break;
 				case Cell.CELL_TYPE_STRING: // получение строчных данных
-					columndata.add(cell.getStringCellValue());
+					prog.add(cell.getStringCellValue());
 					break;
 			}
 		}
