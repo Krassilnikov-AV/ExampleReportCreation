@@ -74,8 +74,8 @@ public class ReadExcelData {
 	public static void main(String[] args) throws IOException {
 
 		ReadExcelData code = new ReadExcelData();
-	//	code.getDataStringIntegerDate(doc.ReadExcelData.timeEnd);
-		code.getDataTime(ReadExcelData.timeEnd);
+		code.getDataStringIntegerDate(0);
+//		code.getDataTime(ReadExcelData.timeEnd);
 	}
 
 /**
@@ -136,46 +136,46 @@ public class ReadExcelData {
 	}
 // метод для получения данных даты в формате "ЧАСы : минуты"
 
-	public List<String> getDataTime(int columnIndex) throws ParseException {
-		try {
-			File f = new File(fileName);
-			FileInputStream ios = new FileInputStream(f);
-			XSSFWorkbook workbook = new XSSFWorkbook(ios);
-			XSSFSheet sheet = workbook.getSheetAt(0);
-			Iterator<Row> rowIterator = sheet.iterator();
-			columndata = new LinkedList<String>();
-
-			while (rowIterator.hasNext()) {
-				Row row = rowIterator.next();
-				Iterator<Cell> cellIterator = row.cellIterator();
-				while (cellIterator.hasNext()) {
-					Cell cell = cellIterator.next();
-
-					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
-						if (cell.getColumnIndex() == columnIndex) {// соответствие индекса столбца
-							switch (cell.getCellType()) {
-								case Cell.CELL_TYPE_NUMERIC:
-									String time = "HH:mm";
-									if (DateUtil.isCellDateFormatted(cell)) {// получение данных времени
-										SimpleDateFormat sdfTime = new SimpleDateFormat(time, Locale.UK);
-										columndata.add(sdfTime.format(cell.getDateCellValue()));
-									}
-									break;
-							}
-						}
-					}
-				}
-			}
-			ios.close();
-			Iterator it = columndata.iterator();
-			while (it.hasNext()) {
-				System.out.println(it.next());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return columndata;
-	}
+//	public List<String> getDataTime(int columnIndex) throws ParseException {
+//		try {
+//			File f = new File(fileName);
+//			FileInputStream ios = new FileInputStream(f);
+//			XSSFWorkbook workbook = new XSSFWorkbook(ios);
+//			XSSFSheet sheet = workbook.getSheetAt(0);
+//			Iterator<Row> rowIterator = sheet.iterator();
+//			columndata = new LinkedList<String>();
+//
+//			while (rowIterator.hasNext()) {
+//				Row row = rowIterator.next();
+//				Iterator<Cell> cellIterator = row.cellIterator();
+//				while (cellIterator.hasNext()) {
+//					Cell cell = cellIterator.next();
+//
+//					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
+//						if (cell.getColumnIndex() == columnIndex) {// соответствие индекса столбца
+//							switch (cell.getCellType()) {
+//								case Cell.CELL_TYPE_NUMERIC:
+//									String time = "HH:mm";
+//									if (DateUtil.isCellDateFormatted(cell)) {// получение данных времени
+//										SimpleDateFormat sdfTime = new SimpleDateFormat(time, Locale.UK);
+//										columndata.add(sdfTime.format(cell.getDateCellValue()));
+//									}
+//									break;
+//							}
+//						}
+//					}
+//				}
+//			}
+//			ios.close();
+//			Iterator it = columndata.iterator();
+//			while (it.hasNext()) {
+//				System.out.println(it.next());
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return columndata;
+//	}
 
 	/*public List<String> getDataStringIntegerDate(String fileName, int columnIndex)  {
 
