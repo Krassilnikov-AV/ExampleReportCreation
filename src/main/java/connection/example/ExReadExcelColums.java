@@ -46,7 +46,7 @@ public class ExReadExcelColums {
 
 	String fileName = "Primer_raspisania.xlsx";
 	//String fileName = "fileToRead";
-//	private LinkedList<String> columndata;
+//	private LinkedList<String> columnStrData;
 
 
 	/**
@@ -59,6 +59,7 @@ public class ExReadExcelColums {
 
 	static int columnIndex = 0;
 	static int columnInt = 1;
+
 
 	// основной метод класса для проверки считывания данных с таблицы
 	public static void main(String[] args) throws IOException {
@@ -75,7 +76,7 @@ public class ExReadExcelColums {
 //		ExReadExcelColums exr = new ExReadExcelColums();
 //		exr.getDataStringIntegerDate(14);
 		ExReadExcelColums exr = new ExReadExcelColums();
-		exr.getDataStringIntegerDate(columnIndex, columnInt);
+		exr.getDataStringIntegerDate(columnIndex);
 	}
 
 /**
@@ -89,7 +90,7 @@ public class ExReadExcelColums {
 	 */
 
 	private LinkedList<Integer> groupid;
-//	private LinkedList<String> groupcode;
+	//	private LinkedList<String> groupcode;
 	private LinkedList<String> programm;
 	private LinkedList<Date> datestart;
 	private LinkedList<Time> timestart;
@@ -99,23 +100,22 @@ public class ExReadExcelColums {
 	private LinkedList<String> typelessons;
 
 
-	//	private LinkedList<String> columndata;
-	List<String> prog = null;
-	private List<Integer> groupcode;
-	ExScheduleToTable exs = new ExScheduleToTable();
+		private LinkedList<String> columnStrData;
+//	List<String> prog = null;
+//	private java.util.List<String> groupcode;
 
-	Cell cell = null;
-	// переменная, которую возвращает метод  getDataStringIntegerDate(int columnIndex, int columnInt)
-	List<>
+	private LinkedList<String> progData;
+//	ExScheduleToTable exs = new ExScheduleToTable(progData);
+
+
+
 
 	/**
-	 *
 	 * метод должен получить определённые номера колонок, вызвать метод, который обработает тип ячейки
 	 * и вернуть считанные данные
 	 */
-
-
-	public List<?> getDataStringIntegerDate(int columnIndex, int columnInt) {
+	Cell cell = null;
+	public List<?> getDataStringIntegerDate(int columnIndex) {
 
 		try {
 			File f = new File(fileName);
@@ -123,10 +123,8 @@ public class ExReadExcelColums {
 			XSSFWorkbook workbook = new XSSFWorkbook(ios);
 			XSSFSheet sheet = workbook.getSheetAt(0);
 			Iterator<Row> rowIterator = sheet.iterator();
-//			columndata = new LinkedList<String>();
-			prog = exs.getProgramm();         // пример вызова с экземпляра класса
-			prog = new LinkedList<>();         // созданный в классе
-			groupcode = new LinkedList<String>();
+			columnStrData = new LinkedList<String>();
+
 			while (rowIterator.hasNext()) {
 				Row row = rowIterator.next();
 				Iterator<Cell> cellIterator = row.cellIterator();
@@ -135,38 +133,37 @@ public class ExReadExcelColums {
 
 					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
 						// вставить метод выбора типа данных
-						selectTypeData(columnIndex, columnInt);
+						selectTypeData(columnIndex);
 					}
 				}
 			}
 			ios.close();
-			Iterator it = prog.iterator();
+			Iterator it = progData.iterator();
 			while (it.hasNext()) {
 				System.out.println(it.next());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return prog;
+		return columnStrData;
 	}
 
 	//метод для выбора типа данных считываемых с файла
-	private void selectTypeData(int columnIndex, int columnInt) {
+	private void selectTypeData(int columnIndex) {
 
-		if (cell.getColumnIndex() == columnIndex ||
-			cell.getColumnIndex() == columnInt) {
+		if (cell.getColumnIndex() == columnIndex) {
 			// соответствие индекса столбца
 			switch (cell.getCellType()) {
 				case Cell.CELL_TYPE_NUMERIC:
 					if (DateUtil.isCellDateFormatted(cell)) {  // получение данных даты
 						SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
-						prog.add(sdfDate.format(cell.getDateCellValue()));
+						columnStrData.add(sdfDate.format(cell.getDateCellValue()));
 					} else { // получение целочисленных данных
-						groupcode.add((int) cell.getNumericCellValue() + "");
+						columnStrData.add((int) cell.getNumericCellValue() + "");
 					}
 					break;
 				case Cell.CELL_TYPE_STRING: // получение строчных данных
-					prog.add(cell.getStringCellValue());
+					columnStrData.add(cell.getStringCellValue());
 					break;
 			}
 		}
@@ -193,56 +190,56 @@ public class ExReadExcelColums {
 //					Cell cell = cellIterator.next();
 //
 //					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
-////						try {
-////							if (cell.getColumnIndex() == codeGroup) {
-//////								String str = ;
-////								Integer int = new Integer(cell.getStringCellValue());
-////								exsch.getGroupcode().add();
-////							}
-////						} catch (NumberFormatException e) {
-////							System.err.println("Неверный формат строки!");
-////						}
+//						try {
+//							if (cell.getColumnIndex() == codeGroup) {
+//								String str = ;
+//								Integer int = new Integer(cell.getStringCellValue());
+//								exsch.getGroupcode().add();
+//							}
+//						} catch (NumberFormatException e) {
+//							System.err.println("Неверный формат строки!");
+//						}
 //						if (cell.getColumnIndex() == discipline) {
 //							exsch.getProgramm().add(cell.getStringCellValue());
 //						}
 //
-////						if (cell.getColumnIndex() == dateStart) {
-////							SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
-////							exsch.getDatestart().add(sdfDate.get2DigitYearStart());
-////						}
-////						if (cell.getColumnIndex() == timeStart) {
-////							SimpleDateFormat sdfDate = new SimpleDateFormat("hh:mm");
-////							exsch.getTimestart().add((Time) sdfDate.get2DigitYearStart());
-////						}
-////
-////						if (cell.getColumnIndex() == dateEnd) {
-////							SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
-////							exsch.getDatestart().add(sdfDate.get2DigitYearStart());
-////						}
-////						if (cell.getColumnIndex() == timeEnd) {
-////							SimpleDateFormat sdfDate = new SimpleDateFormat("hh:mm");
-////							exsch.getTimeend().add((Time) sdfDate.get2DigitYearStart());
-////						}
+//						if (cell.getColumnIndex() == dateStart) {
+//							SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
+//							exsch.getDatestart().add(sdfDate.get2DigitYearStart());
+//						}
+//						if (cell.getColumnIndex() == timeStart) {
+//							SimpleDateFormat sdfDate = new SimpleDateFormat("hh:mm");
+//							exsch.getTimestart().add((Time) sdfDate.get2DigitYearStart());
+//						}
 //
-////						if (cell.getColumnIndex() == clasRum) {
-////							exsch.getClassrum().add(cell.getStringCellValue());
-////						}
-////						if (cell.getColumnIndex() == typeLearn) {
-////							exsch.getClassrum().add(cell.getStringCellValue());
-////						}
+//						if (cell.getColumnIndex() == dateEnd) {
+//							SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
+//							exsch.getDatestart().add(sdfDate.get2DigitYearStart());
+//						}
+//						if (cell.getColumnIndex() == timeEnd) {
+//							SimpleDateFormat sdfDate = new SimpleDateFormat("hh:mm");
+//							exsch.getTimeend().add((Time) sdfDate.get2DigitYearStart());
+//						}
+//
+//						if (cell.getColumnIndex() == clasRum) {
+//							exsch.getClassrum().add(cell.getStringCellValue());
+//						}
+//						if (cell.getColumnIndex() == typeLearn) {
+//							exsch.getClassrum().add(cell.getStringCellValue());
+//						}
 //					}
 //				}
 //			}
 //			ios.close();
-////			Iterator itGroupCode = exsch.getGroupcode().iterator();
+//			Iterator itGroupCode = exsch.getGroupcode().iterator();
 //			Iterator itProgram = exsch.getProgramm().iterator();
-////			Iterator itDateStart = exsch.getDatestart().iterator();
-////			Iterator itDateEnd = exsch.getDateend().iterator();
+//			Iterator itDateStart = exsch.getDatestart().iterator();
+//			Iterator itDateEnd = exsch.getDateend().iterator();
 //			while (
 //				//itGroupCode.hasNext() &&
 //				itProgram.hasNext()) //&&
-////				itDateStart.hasNext() &&
-////				itDateEnd.hasNext()) {
+//				itDateStart.hasNext() &&
+//				itDateEnd.hasNext()) {
 //				System.out.println(" " + itProgram + " ");
 //
 //		} catch (Exception e) {
