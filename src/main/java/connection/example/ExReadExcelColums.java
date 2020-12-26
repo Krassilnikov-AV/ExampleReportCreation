@@ -98,6 +98,7 @@ public class ExReadExcelColums {
 	/**
 	 * метод для построения и просмотра считанных данных
 	 */
+
 	public void buildingTable() {
 		ExReadExcelColums exr = new ExReadExcelColums();
 		int oneColumn = 0;
