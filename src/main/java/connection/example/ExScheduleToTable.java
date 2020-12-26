@@ -49,9 +49,9 @@ public class ExScheduleToTable<A, B> {
 
 	List<String> program;
 
-	public List<?> addData() {
-
-	}
+//	public List<?> addData() {
+//
+//	}
 
 //	List<Date> datestart;
 //
