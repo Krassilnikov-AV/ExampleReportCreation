@@ -44,7 +44,7 @@ public class ExReadExcelColums {
 	final int academRecord = 20;   // академических записей (число)
 
 
-	String fileName = "Primer_raspisania.xlsx";
+	String fileName = "Primer_raspisania1.xlsx";
 	//String fileName = "fileToRead";
 //	private LinkedList<String> columnStrData;
 
@@ -87,13 +87,7 @@ public class ExReadExcelColums {
 	private LinkedList<String> typelessons;
 
 
-	private LinkedList<String> columnStrData;
-	private LinkedList<Integer> columnIntData;
-//	List<String> prog = null;
-//	private java.util.List<String> groupcode;
-
-	//	private LinkedList<String> progData;
-//	ExScheduleToTable exs = new ExScheduleToTable(progData);
+	private LinkedList<Object> columnStrData;
 
 	/**
 	 * метод для построения и просмотра считанных данных
@@ -101,20 +95,46 @@ public class ExReadExcelColums {
 
 	public void buildingTable() {
 		ExReadExcelColums exr = new ExReadExcelColums();
-		int oneColumn = 0;
-		int twoColumn = 1;
-		columnIndex = oneColumn;
-		List<?> exr1 = exr.getDataStringIntegerDate(columnIndex);
 
-		columnIndex = twoColumn;
-		List<?> exr2 = exr.getDataStringIntegerDate(columnIndex);
+		columnIndex = codeGroup;
+		List<Object> colCodeGroup = exr.getDataStringIntegerDate(columnIndex);
 
-		for (Object s : exr1)
-			for (Object s1 : exr2)
-				System.out.println(s+":"+s1);
+		columnIndex = discipline;
+		List<Object> colProgram = exr.getDataStringIntegerDate(columnIndex);
+
+		columnIndex = dateStart;
+//		List<?> colDataStart = exr.getDataStringIntegerDate(columnIndex);
+//		Object codGr = null;
+
+
+		List<Integer> gr = new LinkedList<>();
+		for (Object valInt : colCodeGroup) {
+//			int i = (Integer) valInt;
+			Integer i = Integer.valueOf((String) valInt);
+			gr.add(i);
+		}
+
+		List<String> pr = new LinkedList<>();
+		for (Object obj : colProgram) {
+			String str = obj.toString();
+			pr.add(str);
+		}
+
+		//		for (codGr: colCodeGroup) {
+//			gr.add((Integer) codGr);
+//		}
+//		for (prog:colProgram) {
+//			pr.add((String)prog);
+//		}
+//				for (Object DataStart : colDataStart)
+
+//					System.out.println(iter+"Группа: " + codGr + " Программа: " + prog + " Начало: " + DataStart);
+
+		System.out.println("Группа: " + gr + " Программа: " + pr);
+//		System.out.println(" Программа: " + pr);
 //		columnIndex = twoColumn;
-//		List<?> exr2 = exr.getDataStringIntegerDate(columnIndex);
-//		System.out.println(exr1, exr2);
+//		List<?> colProgram = exr.getDataStringIntegerDate(columnIndex);
+//		System.out.println(colCodeGroup, colProgram);
 	}
 
 	/**
@@ -123,7 +143,7 @@ public class ExReadExcelColums {
 	 */
 	Cell cell = null;
 
-	public List<String> getDataStringIntegerDate(int columnIndex) {
+	public List<Object> getDataStringIntegerDate(int columnIndex) {
 
 		try {
 			File f = new File(fileName);
