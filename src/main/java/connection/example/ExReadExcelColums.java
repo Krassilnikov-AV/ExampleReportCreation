@@ -64,6 +64,7 @@ public class ExReadExcelColums {
 	public static void main(String[] args) throws IOException {
 		ExReadExcelColums exr = new ExReadExcelColums();
 		exr.buildingTable();
+//		exr.getDataStringDate(5);
 	}
 
 /**
@@ -97,44 +98,25 @@ public class ExReadExcelColums {
 		ExReadExcelColums exr = new ExReadExcelColums();
 
 		columnIndex = codeGroup;
-		List<Object> colCodeGroup = exr.getDataStringIntegerDate(columnIndex);
+		List<?> colCodeGroup = exr.getDataStringDate(columnIndex);
 
 		columnIndex = discipline;
-		List<Object> colProgram = exr.getDataStringIntegerDate(columnIndex);
+		List<?> colProgram = exr.getDataStringDate(columnIndex);
 
 		columnIndex = dateStart;
-//		List<?> colDataStart = exr.getDataStringIntegerDate(columnIndex);
-//		Object codGr = null;
+		List<?> colDataStart = exr.getDataStringDate(columnIndex);
 
-
-		List<Integer> gr = new LinkedList<>();
-		for (Object valInt : colCodeGroup) {
-//			int i = (Integer) valInt;
-			Integer i = Integer.valueOf((String) valInt);
-			gr.add(i);
+		Iterator itCode = colCodeGroup.iterator();
+		Iterator itProg = colProgram.iterator();
+		Iterator itDateSt = colDataStart.iterator();
+//		String val = "dd.MM.yyyy";
+//		SimpleDateFormat sdfDate = new SimpleDateFormat(val);
+		while (itCode.hasNext() &&
+			itProg.hasNext() &&
+			itDateSt.hasNext()) {
+			System.out.println(String.format(itCode.next() +
+				"   " + itProg.next() + "     " + itDateSt));
 		}
-
-		List<String> pr = new LinkedList<>();
-		for (Object obj : colProgram) {
-			String str = obj.toString();
-			pr.add(str);
-		}
-
-		//		for (codGr: colCodeGroup) {
-//			gr.add((Integer) codGr);
-//		}
-//		for (prog:colProgram) {
-//			pr.add((String)prog);
-//		}
-//				for (Object DataStart : colDataStart)
-
-//					System.out.println(iter+"Группа: " + codGr + " Программа: " + prog + " Начало: " + DataStart);
-
-		System.out.println("Группа: " + gr + " Программа: " + pr);
-//		System.out.println(" Программа: " + pr);
-//		columnIndex = twoColumn;
-//		List<?> colProgram = exr.getDataStringIntegerDate(columnIndex);
-//		System.out.println(colCodeGroup, colProgram);
 	}
 
 	/**
@@ -143,7 +125,7 @@ public class ExReadExcelColums {
 	 */
 	Cell cell = null;
 
-	public List<Object> getDataStringIntegerDate(int columnIndex) {
+	public List<Object> getDataStringDate(int columnIndex) {
 
 		try {
 			File f = new File(fileName);
@@ -166,10 +148,10 @@ public class ExReadExcelColums {
 				}
 			}
 			ios.close();
-//			Iterator it = columnStrData.iterator();
-//			while (it.hasNext()) {
-//				System.out.println(it.next());
-//			}
+			Iterator it = columnStrData.iterator();
+			while (it.hasNext()) {
+				System.out.println(it.next());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -184,7 +166,8 @@ public class ExReadExcelColums {
 			switch (cell.getCellType()) {
 				case Cell.CELL_TYPE_NUMERIC:
 					if (DateUtil.isCellDateFormatted(cell)) {  // получение данных даты
-						SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
+						String val = "dd.MM.yyyy";
+						SimpleDateFormat sdfDate = new SimpleDateFormat(val);
 						columnStrData.add(sdfDate.format(cell.getDateCellValue()));
 					} else { // получение целочисленных данных
 						columnStrData.add((int) cell.getNumericCellValue() + "");
