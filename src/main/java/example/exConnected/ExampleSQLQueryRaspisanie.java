@@ -29,7 +29,7 @@ public class ExampleSQLQueryRaspisanie {
 	private int codeGroup = 3;   //+1 код группы  (число)
 	final static int group = 4;   // название группы (строка)
 	private int dateStart = 5;   // +3 дата начала (дата)
-	final static int timeStart = 6;   // +4 время начала (время)
+	private int timeStart = 6;   // +4 время начала (время)
 	final static int dateEnd = 7;   // +5 дата завершения (дата)
 	final static int timeEnd = 8;   // +6 время завершения (время)
 	final static int classID = 9;   // ID аудитории (число)
@@ -51,7 +51,7 @@ public class ExampleSQLQueryRaspisanie {
 	 * INSERT INTO <table_name> (<col_name1>, <col_name2>, <col_name3>, …)
 	 * VALUES (<value1>, <value2>, <value3>, …);
 	 */
-	String insertSQL = "INSERT INTO schedule(program, codgroup, auditorium, datestart) VALUES(?, ?, ?, ?)";
+	String insertSQL = "INSERT INTO schedule(program, codgroup, auditorium, datestart, timestart) VALUES(?, ?, ?, ?, ?)";
 
 	//	String insertSQL = "INSERT INTO schedule(program) VALUES(?)";
 	String deletedSQL = "DELETE FROM schedule";
@@ -75,6 +75,7 @@ public class ExampleSQLQueryRaspisanie {
 				LinkedList<String> listGr = (LinkedList<String>) exread.getDataStringDate(codeGroup);
 				LinkedList<String> listAudit = (LinkedList<String>) exread.getDataStringDate(clasRum);
 				LinkedList<String> listDateSt = (LinkedList<String>) exread.getDataStringDate(dateStart);
+				LinkedList<String> listTimeSt = (LinkedList<String>) exread.getDataStringDate(timeStart);
 
 				for (String prog : listPr) {
 					stm.setString(1, prog);  // вставка программы
@@ -84,9 +85,10 @@ public class ExampleSQLQueryRaspisanie {
 							stm.setString(3, clas);  // вставка номера аудитории
 						}
 						for (String ds : listDateSt) {
-//							Date date=new SimpleDateFormat("dd.MM.yyyy").parse(ds);
-////							ds = date.toString();
 							stm.setString(4, ds);
+						}
+						for (String ts : listTimeSt){
+							stm.setString(5, ts);
 						}
 					}
 					stm.addBatch();
