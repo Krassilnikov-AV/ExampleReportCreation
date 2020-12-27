@@ -2,11 +2,8 @@
  * Copyright (c) 2020 Tander, All Rights Reserved.
  */
 
-package connection.example;
+package example;
 
-import doc.ReadExcelData;
-
-import java.sql.Time;
 import java.util.*;
 
 /**

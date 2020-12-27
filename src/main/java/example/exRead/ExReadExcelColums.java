@@ -2,7 +2,7 @@
  * Copyright (c) 2020 Tander, All Rights Reserved.
  */
 
-package connection.example;
+package example.exRead;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
@@ -67,16 +67,6 @@ public class ExReadExcelColums {
 //		exr.getDataStringDate(5);
 	}
 
-/**
- * ЗАДАНИЕ
- * нужно List<<int><int><string><date><time><date><time><string><string>>
- */
-// метод для получения строчных, целочисленных данных и даты в формате "число.месяц.год"
-
-	/**
-	 * ! добавить метод, который будет получать путь и номер колонки, который вызывается в сервлете
-	 */
-
 	private LinkedList<Integer> groupid;
 	//	private LinkedList<String> groupcode;
 	private LinkedList<String> programm;
@@ -91,7 +81,9 @@ public class ExReadExcelColums {
 	private LinkedList<Object> columnStrData;
 
 	/**
-	 * метод для построения и просмотра считанных данных
+	 * метод для построения таблицы из прчитанных данных и просмотра данных
+	 * Вопросы:
+	 * 1. формат даты считывается как ссылка
 	 */
 
 	public void buildingTable() {
@@ -105,17 +97,18 @@ public class ExReadExcelColums {
 
 		columnIndex = dateStart;
 		List<?> colDataStart = exr.getDataStringDate(columnIndex);
+//		String val = "dd.MM.yyyy";
+//		SimpleDateFormat sdfDate = new SimpleDateFormat(val);
 
 		Iterator itCode = colCodeGroup.iterator();
 		Iterator itProg = colProgram.iterator();
 		Iterator itDateSt = colDataStart.iterator();
-//		String val = "dd.MM.yyyy";
-//		SimpleDateFormat sdfDate = new SimpleDateFormat(val);
+
 		while (itCode.hasNext() &&
 			itProg.hasNext() &&
 			itDateSt.hasNext()) {
-			System.out.println(String.format(itCode.next() +
-				"   " + itProg.next() + "     " + itDateSt));
+			System.out.println(itCode.next() +
+				"   " + itProg.next() + "     " + itDateSt);
 		}
 	}
 
@@ -148,10 +141,10 @@ public class ExReadExcelColums {
 				}
 			}
 			ios.close();
-			Iterator it = columnStrData.iterator();
-			while (it.hasNext()) {
-				System.out.println(it.next());
-			}
+//			Iterator it = columnStrData.iterator();
+//			while (it.hasNext()) {
+//				System.out.println(it.next());
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

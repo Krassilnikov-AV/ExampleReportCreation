@@ -2,14 +2,12 @@
  * Copyright (c) 2020 Tander, All Rights Reserved.
  */
 
-package connection.example;
+package example.exConnected;
 
 import connection.ConfigurateApp;
-import doc.ReadExcelData;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.List;
 
 /**
  * Класс ExampleConnection, устанавливает соединение с базой данных
@@ -21,11 +19,11 @@ public class ExampleConnection {
 
 	public static void main(String[] args) throws SQLException, IOException {
 		ExampleConnection exampleConnection = new ExampleConnection();
-		ExampleSQLQuery exampleSQLQuery = new ExampleSQLQuery();
+		ExampleSQLQueryRaspisanie exampleSQLQueryRaspisanie = new ExampleSQLQueryRaspisanie();
 
 		exampleConnection.getNameURL();
-//		exampleSQLQuery.insertQuerySQL();
-		exampleSQLQuery.deletedDataSQL();
+		exampleSQLQueryRaspisanie.insertQuerySQL();
+//		exampleSQLQueryRaspisanie.deletedDataSQL();
 	}
 
 	/*
@@ -37,7 +35,8 @@ public class ExampleConnection {
 		String databasePort = conf.getDatabasePort();
 		String databaseName = conf.getDatabaseName();
 
-		String url = databaseDriver.concat("://").concat(databaseHost).concat(":").concat(databasePort).concat("/").concat(databaseName);
+		String url =databaseDriver.concat("://").concat(databaseHost).concat(":").concat(databasePort).concat("/").concat(databaseName);
+//		String url = databaseDriver.concat("://").concat(databaseHost).concat(":").concat(databasePort).concat("/").concat(databaseName);
 		return url;
 	}
 
