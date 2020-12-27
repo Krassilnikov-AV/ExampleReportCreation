@@ -3,11 +3,12 @@
  */
 package example.exConnected;
 
-import doc.ReadExcelData;
 import example.exRead.ExReadExcelColums;
 
 import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.*;
 
 /**
@@ -27,7 +28,7 @@ public class ExampleSQLQueryRaspisanie {
 	final static int gpoupID = 2;   // ID группы  (число)
 	private int codeGroup = 3;   //+1 код группы  (число)
 	final static int group = 4;   // название группы (строка)
-	final static int dateStart = 5;   // +3 дата начала (дата)
+	private int dateStart = 5;   // +3 дата начала (дата)
 	final static int timeStart = 6;   // +4 время начала (время)
 	final static int dateEnd = 7;   // +5 дата завершения (дата)
 	final static int timeEnd = 8;   // +6 время завершения (время)
@@ -50,7 +51,7 @@ public class ExampleSQLQueryRaspisanie {
 	 * INSERT INTO <table_name> (<col_name1>, <col_name2>, <col_name3>, …)
 	 * VALUES (<value1>, <value2>, <value3>, …);
 	 */
-	String insertSQL = "INSERT INTO schedule(program, codgroup, auditorium) VALUES(?, ?, ?)";
+	String insertSQL = "INSERT INTO schedule(program, codgroup, auditorium, datestart) VALUES(?, ?, ?, ?)";
 
 	//	String insertSQL = "INSERT INTO schedule(program) VALUES(?)";
 	String deletedSQL = "DELETE FROM schedule";
@@ -70,16 +71,22 @@ public class ExampleSQLQueryRaspisanie {
 
 				ExReadExcelColums exread = new ExReadExcelColums();
 
-				List<String> listPr = exread.getDataStringDate(discipline);
-				List<String> listGr = exread.getDataStringDate(codeGroup);
-				List<String> listAudit = exread.getDataStringDate(clasRum);
+				LinkedList<String> listPr = (LinkedList<String>) exread.getDataStringDate(discipline);
+				LinkedList<String> listGr = (LinkedList<String>) exread.getDataStringDate(codeGroup);
+				LinkedList<String> listAudit = (LinkedList<String>) exread.getDataStringDate(clasRum);
+				LinkedList<String> listDateSt = (LinkedList<String>) exread.getDataStringDate(dateStart);
 
 				for (String prog : listPr) {
-					stm.setString(1, prog);  // вставка значений
+					stm.setString(1, prog);  // вставка программы
 					for (String code : listGr) {
-						stm.setString(2, code);  // вставка значений
+						stm.setString(2, code);  // вставка кола группы
 						for (String clas : listAudit) {
-							stm.setString(3, clas);  // вставка значений
+							stm.setString(3, clas);  // вставка номера аудитории
+						}
+						for (String ds : listDateSt) {
+//							Date date=new SimpleDateFormat("dd.MM.yyyy").parse(ds);
+////							ds = date.toString();
+							stm.setString(4, ds);
 						}
 					}
 					stm.addBatch();
@@ -98,6 +105,11 @@ public class ExampleSQLQueryRaspisanie {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static java.sql.Date getCurrentDate() {
+		java.util.Date date = new java.util.Date();
+		return new java.sql.Date(date.getTime());
 	}
 
 
