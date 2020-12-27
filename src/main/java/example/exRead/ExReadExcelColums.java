@@ -78,7 +78,7 @@ public class ExReadExcelColums {
 	private LinkedList<String> typelessons;
 
 
-	private LinkedList<Object> columnStrData;
+	private LinkedList<String> columnStrData;
 
 	/**
 	 * метод для построения таблицы из прчитанных данных и просмотра данных
@@ -118,7 +118,7 @@ public class ExReadExcelColums {
 	 */
 	Cell cell = null;
 
-	public List<Object> getDataStringDate(int columnIndex) {
+	public List<String> getDataStringDate(int columnIndex) {
 
 		try {
 			File f = new File(fileName);

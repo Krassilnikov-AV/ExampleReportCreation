@@ -22,8 +22,8 @@ public class ExampleConnection {
 		ExampleSQLQueryRaspisanie exampleSQLQueryRaspisanie = new ExampleSQLQueryRaspisanie();
 
 		exampleConnection.getNameURL();
-		exampleSQLQueryRaspisanie.insertQuerySQL();
 //		exampleSQLQueryRaspisanie.deletedDataSQL();
+		exampleSQLQueryRaspisanie.insertQuerySQL();
 	}
 
 	/*
@@ -36,7 +36,6 @@ public class ExampleConnection {
 		String databaseName = conf.getDatabaseName();
 
 		String url =databaseDriver.concat("://").concat(databaseHost).concat(":").concat(databasePort).concat("/").concat(databaseName);
-//		String url = databaseDriver.concat("://").concat(databaseHost).concat(":").concat(databasePort).concat("/").concat(databaseName);
 		return url;
 	}
 
