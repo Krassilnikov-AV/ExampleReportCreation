@@ -19,11 +19,12 @@ public class ExampleConnection {
 
 	public static void main(String[] args) throws SQLException, IOException {
 		ExampleConnection exampleConnection = new ExampleConnection();
-		ExampleSQLQueryRaspisanie exampleSQLQueryRaspisanie = new ExampleSQLQueryRaspisanie();
+//
+		ExSQLQueryDate exSQLQueryDate = new ExSQLQueryDate();
 
 		exampleConnection.getNameURL();
-//		exampleSQLQueryRaspisanie.deletedDataSQL();
-		exampleSQLQueryRaspisanie.insertQuerySQL();
+//		exSQLQueryDate.deletedDataSQL();
+		exSQLQueryDate.insertQuerySQL();
 	}
 
 	/*
