@@ -65,7 +65,7 @@ public class ExReadExcelData {
 
 		ExReadExcelData exr = new ExReadExcelData();
 //		exr.buildingTable();
-		exr.getDate(5);
+		exr.getDate(columnIndex);
 	}
 
 	private LinkedList<Integer> groupid;
@@ -138,17 +138,35 @@ public class ExReadExcelData {
 						// вставить метод выбора типа данных
 						//	selectTypeData(columnIndex);
 						if (cell.getColumnIndex() == columnIndex) {
-							cell.getCellType();
-							Date date = cell.getDateCellValue();
-							columnStrData.add(date);
+							switch (cell.getCellType()) {
+								case Cell.CELL_TYPE_NUMERIC:
+									if (DateUtil.isCellDateFormatted(cell)) {
+										Date date = cell.getDateCellValue();
+										columnStrData.add(date);
+									} else {
+										System.out.println("НЕ ВЕРНЫЙ ФОРМАТ ЯЧЕЙКИ.");
+									}
+
+//						switch (cell.getCellType()) {
+////								case Cell.CELL_TYPE_NUMERIC:
+////							String time = "HH:mm";
+//							if (DateUtil.isCellDateFormatted(cell)) {// получение данных времени
+//								Date date = cell.getDateCellValue();
+//								columnStrData.add(date);
+////								SimpleDateFormat sdfTime = new SimpleDateFormat(time, Locale.UK);
+//								columnStrData.add(sdfTime.format(cell.getDateCellValue()));
+//							}
+//							break;
+//						}
+							}
 						}
 					}
+					ios.close();
+					Iterator it = columnStrData.iterator();
+					while (it.hasNext()) {
+						System.out.println(it.next());
+					}
 				}
-			}
-			ios.close();
-			Iterator it = columnStrData.iterator();
-			while (it.hasNext()) {
-				System.out.println(it.next());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -157,6 +175,18 @@ public class ExReadExcelData {
 	}
 
 
+//					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
+//						if (cell.getColumnIndex() == columnIndex) {// соответствие индекса столбца
+//							switch (cell.getCellType()) {
+//								case Cell.CELL_TYPE_NUMERIC:
+//									String time = "HH:mm";
+//									if (DateUtil.isCellDateFormatted(cell)) {// получение данных времени
+//										SimpleDateFormat sdfTime = new SimpleDateFormat(time, Locale.UK);
+//										columndata.add(sdfTime.format(cell.getDateCellValue()));
+//									}
+//									break;
+//							}
+//						}
 //	private void getDateFormat(int columnIndex) {
 //		String d = "dd.MM.yyyy";
 //		Date date = cell.getDateCellValue();
