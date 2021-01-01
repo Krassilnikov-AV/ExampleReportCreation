@@ -24,7 +24,8 @@ public class ExampleConnection {
 
 		exampleConnection.getNameURL();
 		exSQLQueryDate.deletedDataSQL();
-		exSQLQueryDate.insertQuerySQL();
+		exSQLQueryDate.insertStartDateSQL();
+		exSQLQueryDate.insertStartTimeSQL();
 	}
 
 	/*

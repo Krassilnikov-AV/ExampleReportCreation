@@ -5,12 +5,14 @@
 package example.exConnected;
 
 
-import example.exRead.*;
+import example.exRead.ExReadExcelData;
+import org.apache.poi.ss.usermodel.DateUtil;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.*;
+import java.text.*;
 import java.util.Date;
+import java.util.*;
 
 /**
  * Класс ExSQLQueryDate
@@ -47,7 +49,8 @@ public class ExSQLQueryDate {
 	 * INSERT INTO <table_name> (<col_name1>, <col_name2>, <col_name3>, …)
 	 * VALUES (<value1>, <value2>, <value3>, …);
 	 */
-	String insertSQL = "INSERT INTO schedule(datestart, timestart) VALUES(?, ?)";
+	String insertTimeStartSQL = "INSERT INTO schedule(timestart) VALUES(?)";
+	String insertDateStartSQL = "INSERT INTO schedule(datestart) VALUES(?)";
 
 	//	String insertSQL = "INSERT INTO schedule(program) VALUES(?)";
 	String deletedSQL = "DELETE FROM schedule";
@@ -57,40 +60,91 @@ public class ExSQLQueryDate {
 
 	ExampleConnection exmpCon = new ExampleConnection();
 
-	public void insertQuerySQL() throws IOException, SQLException {
+	ExReadExcelData exread = new ExReadExcelData();
+	List<Date> listDateSt = exread.getDate(dateStart);
+	List<Date> listTime = exread.getDate(timeStart);
+
+	public void insertStartDateSQL() throws IOException, SQLException {
 		try (Connection connection = exmpCon.getPostConnection()) {
-			try (PreparedStatement stm = connection.prepareStatement(insertSQL)) {
-
-				ExReadExcelData exread = new ExReadExcelData();
-
-				List<Date> listDateSt = exread.getDate(dateStart);
-				List<Long> listTime = exread.getTime(timeStart);
-
-				//					ExSQLQueryDate esq = new ExSQLQueryDate();
-				//					esq.getCurrentDate(d);
-				//					Date df = d;
+			try (PreparedStatement stm = connection.prepareStatement(insertDateStartSQL)) {
 				for (Date d : listDateSt) {
 					stm.setTimestamp(1, new Timestamp(d.getTime()));
-				for (Long t :listTime) {
-					stm.setTime(2, new Time(t.longValue()));
-				}
 					stm.addBatch();
 					stm.executeUpdate();
 				}
 			} catch (Exception e) {
 				System.out.println("Данные не занесены, ошибка при выполнении....!!!");
 				e.printStackTrace();
-			} finally {
-				System.out.println("-/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/-");
-				System.out.println("Закрыли соединение с БД после внесения/не внесения данных...");
 			}
+		} finally {
+			System.out.println("-/*/--/*Закрыли соединение с БД после внесения (не внесения) начала даты занятий..");
 		}
 	}
 
-	private java.sql.Date getCurrentDate(Date d) {
-		d = new java.util.Date();
-		return new java.sql.Date(d.getTime());
+	public void insertStartTimeSQL() throws IOException, SQLException {
+		try (Connection connection = exmpCon.getPostConnection()) {
+			try  {
+				PreparedStatement stm = connection.prepareStatement(insertTimeStartSQL);
+				for (Date t : listTime) {
+					stm.setTime(1, new Time(t.getTime()));
+					stm.addBatch();
+				}
+				stm.executeUpdate();
+			} catch (Exception e) {
+				System.out.println("Данные не занесены, ошибка при выполнении....!!!");
+				e.printStackTrace();
+			}
+		} finally {
+			System.out.println("-/*/--/*Закрыли соединение с БД после внесения (не внесения) начала времени занятий..");
+		}
 	}
+
+//	private java.sql.Date getCurrentDate(Date d) {
+//		d = new java.util.Date();
+//		return new java.sql.Date(d.getTime());
+//	}
+
+
+//	public void insertQuerySQL() throws IOException, SQLException {
+//		try (Connection connection = exmpCon.getPostConnection()) {
+//			try (PreparedStatement stm = connection.prepareStatement(insertDateStartSQL)) {
+//				for (Date d : listDateSt) {
+//					stm.setTimestamp(1, new Timestamp(d.getTime()));
+////					for (Date t : listTime)
+////						stm.setTime(2, new Time(t.getTime()));
+//
+//					stm.addBatch();
+//					stm.executeUpdate();
+//				}
+//			} catch (Exception e) {
+//				System.out.println("Данные не занесены, ошибка при выполнении....!!!");
+//				e.printStackTrace();
+//			}
+//			try (PreparedStatement stm = connection.prepareStatement(insertTimeStartSQL)) {
+////				for (Date d : listDateSt) {
+////					stm.setTimestamp(1, new Timestamp(d.getTime()));
+//					for (Date t : listTime) {
+//						stm.setTime(1, new Time(t.getTime()));
+//
+//					stm.addBatch();
+//					stm.executeUpdate();
+//				}
+//			} catch (Exception e) {
+//				System.out.println("Данные не занесены, ошибка при выполнении....!!!");
+//				e.printStackTrace();
+//			}
+//
+//			finally {
+//				System.out.println("-/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/-");
+//				System.out.println("Закрыли соединение с БД после внесения/не внесения данных...");
+//			}
+//		}
+//	}
+
+//	private java.sql.Date getCurrentDate(Date d) {
+//		d = new java.util.Date();
+//		return new java.sql.Date(d.getTime());
+//	}
 
 	/*
 	метод для удаления внесённых данных в таблице
@@ -111,3 +165,12 @@ public class ExSQLQueryDate {
 		return 0;
 	}
 }
+
+//	long tLong = 0;
+//						DateFormat smdf = new SimpleDateFormat("HH:mm");
+//						String tStr = smdf.format(t);
+//						try {
+//							tLong = Long.valueOf(tStr);
+//						} catch (NumberFormatException e) {
+//							System.err.println("Неверный формат строки!");
+//						}

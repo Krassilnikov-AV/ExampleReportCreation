@@ -34,14 +34,14 @@ public class ExDateClass {
 		/*
 
 		 */
-		Files.lines(Paths.get("file.txt")).forEach(line -> {
-				String[] lineParts = line.split(" ");
-
-				if (isDateAfter12December(lineParts[0])) {
-					System.out.println(lineParts[1]);
-				}
-			}
-		);
+//		Files.lines(Paths.get("file.txt")).forEach(line -> {
+//				String[] lineParts = line.split(" ");
+//
+//				if (isDateAfter12December(lineParts[0])) {
+//					System.out.println(lineParts[1]);
+//				}
+//			}
+//		);
 	}
 
 	public static boolean isDateAfter12December(String dataString) {

@@ -65,7 +65,7 @@ public class ExReadExcelData {
 		ExReadExcelData exr = new ExReadExcelData();
 //		exr.buildingTable();
 //		exr.getDate(columnIndex);
-		exr.getTime(columnIndex);
+//		exr.getTime(columnIndex);
 	}
 
 	private LinkedList<Integer> groupid;
@@ -159,45 +159,45 @@ public class ExReadExcelData {
 		return columndata;
 	}
 
-	public List<Long> getTime(int columnIndex) {
-
-		try {
-			File f = new File(fileName);
-			FileInputStream ios = new FileInputStream(f);
-			XSSFWorkbook workbook = new XSSFWorkbook(ios);
-			XSSFSheet sheet = workbook.getSheetAt(0);
-			Iterator<Row> rowIterator = sheet.iterator();
-			columnTime = new LinkedList<>();
-
-			while (rowIterator.hasNext()) {
-				Row row = rowIterator.next();
-				Iterator<Cell> cellIterator = row.cellIterator();
-				while (cellIterator.hasNext()) {
-					Cell cell = cellIterator.next();
-
-					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
-						if (cell.getColumnIndex() == columnIndex) {// соответствие индекса столбца
-							switch (cell.getCellType()) {
-								case Cell.CELL_TYPE_NUMERIC:
-									Date date = cell.getDateCellValue();
-									long time = cell.getDateCellValue().getTime();
-									columnTime.add(time);
-							}
-							break;
-						}
-					}
-				}
-			}
-			ios.close();
-			Iterator it = columnTime.iterator();
-			while (it.hasNext()) {
-				System.out.println(it.next());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return columnTime;
-	}
+//	public List<Long> getTime(int columnIndex) {
+//
+//		try {
+//			File f = new File(fileName);
+//			FileInputStream ios = new FileInputStream(f);
+//			XSSFWorkbook workbook = new XSSFWorkbook(ios);
+//			XSSFSheet sheet = workbook.getSheetAt(0);
+//			Iterator<Row> rowIterator = sheet.iterator();
+//			columnTime = new LinkedList<>();
+//
+//			while (rowIterator.hasNext()) {
+//				Row row = rowIterator.next();
+//				Iterator<Cell> cellIterator = row.cellIterator();
+//				while (cellIterator.hasNext()) {
+//					Cell cell = cellIterator.next();
+//
+//					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
+//						if (cell.getColumnIndex() == columnIndex) {// соответствие индекса столбца
+//							switch (cell.getCellType()) {
+//								case Cell.CELL_TYPE_NUMERIC:
+//									Date date = cell.getDateCellValue();
+//									long time = cell.getDateCellValue().getTime();
+//									columnTime.add(time);
+//							}
+//							break;
+//						}
+//					}
+//				}
+//			}
+//			ios.close();
+//			Iterator it = columnTime.iterator();
+//			while (it.hasNext()) {
+//				System.out.println(it.next());
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return columnTime;
+//	}
 
 //	private void selectTypeData(int columnIndex) {
 //
