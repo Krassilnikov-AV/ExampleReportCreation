@@ -47,14 +47,13 @@ public class ExSQLQueryDate {
 	 * INSERT INTO <table_name> (<col_name1>, <col_name2>, <col_name3>, …)
 	 * VALUES (<value1>, <value2>, <value3>, …);
 	 */
-	String insertSQL = "INSERT INTO schedule(datestart) VALUES(?)";
+	String insertSQL = "INSERT INTO schedule(datestart, timestart) VALUES(?, ?)";
 
 	//	String insertSQL = "INSERT INTO schedule(program) VALUES(?)";
 	String deletedSQL = "DELETE FROM schedule";
 //	String insertSQL = "insert into group(groupid) values (?)";
 //	String selectSQL = "SELECT programm FROM raspisanie";
 //	String deletedSQL = "DELETE FROM group";
-
 
 	ExampleConnection exmpCon = new ExampleConnection();
 
@@ -65,21 +64,26 @@ public class ExSQLQueryDate {
 				ExReadExcelData exread = new ExReadExcelData();
 
 				List<Date> listDateSt = exread.getDate(dateStart);
+				List<Long> listTime = exread.getTime(timeStart);
 
 				//					ExSQLQueryDate esq = new ExSQLQueryDate();
 				//					esq.getCurrentDate(d);
 				//					Date df = d;
-				for (Date d : listDateSt)
+				for (Date d : listDateSt) {
 					stm.setTimestamp(1, new Timestamp(d.getTime()));
-				stm.addBatch();
-				stm.executeUpdate();
+				for (Long t :listTime) {
+					stm.setTime(2, new Time(t.longValue()));
+				}
+					stm.addBatch();
+					stm.executeUpdate();
+				}
+			} catch (Exception e) {
+				System.out.println("Данные не занесены, ошибка при выполнении....!!!");
+				e.printStackTrace();
+			} finally {
+				System.out.println("-/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/-");
+				System.out.println("Закрыли соединение с БД после внесения/не внесения данных...");
 			}
-		} catch (Exception e) {
-			System.out.println("Данные не занесены, ошибка при выполнении....!!!");
-			e.printStackTrace();
-		} finally {
-			System.out.println("-/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/-");
-			System.out.println("Закрыли соединение с БД после внесения/не внесения данных...");
 		}
 	}
 

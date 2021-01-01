@@ -5,12 +5,11 @@
 package example.exRead;
 
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 
 import java.io.*;
 import java.sql.Time;
-import java.text.*;
+import java.time.LocalTime;
 import java.util.*;
 
 /**
@@ -56,7 +55,7 @@ public class ExReadExcelData {
 	 * *    timeend, classrum, typelessons
 	 */
 
-	static int columnIndex = 5;
+	static int columnIndex = 6;
 	static int columnInt = 1;
 
 	// основной метод класса для проверки считывания данных с таблицы
@@ -65,7 +64,8 @@ public class ExReadExcelData {
 
 		ExReadExcelData exr = new ExReadExcelData();
 //		exr.buildingTable();
-		exr.getDate(columnIndex);
+//		exr.getDate(columnIndex);
+		exr.getTime(columnIndex);
 	}
 
 	private LinkedList<Integer> groupid;
@@ -80,6 +80,7 @@ public class ExReadExcelData {
 
 
 	private LinkedList<Date> columndata;
+	private List<Long> columnTime;
 
 	/**
 	 * метод для построения таблицы из прчитанных данных и просмотра данных
@@ -158,6 +159,45 @@ public class ExReadExcelData {
 		return columndata;
 	}
 
+	public List<Long> getTime(int columnIndex) {
+
+		try {
+			File f = new File(fileName);
+			FileInputStream ios = new FileInputStream(f);
+			XSSFWorkbook workbook = new XSSFWorkbook(ios);
+			XSSFSheet sheet = workbook.getSheetAt(0);
+			Iterator<Row> rowIterator = sheet.iterator();
+			columnTime = new LinkedList<>();
+
+			while (rowIterator.hasNext()) {
+				Row row = rowIterator.next();
+				Iterator<Cell> cellIterator = row.cellIterator();
+				while (cellIterator.hasNext()) {
+					Cell cell = cellIterator.next();
+
+					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
+						if (cell.getColumnIndex() == columnIndex) {// соответствие индекса столбца
+							switch (cell.getCellType()) {
+								case Cell.CELL_TYPE_NUMERIC:
+									Date date = cell.getDateCellValue();
+									long time = cell.getDateCellValue().getTime();
+									columnTime.add(time);
+							}
+							break;
+						}
+					}
+				}
+			}
+			ios.close();
+			Iterator it = columnTime.iterator();
+			while (it.hasNext()) {
+				System.out.println(it.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return columnTime;
+	}
 
 //	private void selectTypeData(int columnIndex) {
 //
