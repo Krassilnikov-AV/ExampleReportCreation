@@ -7,7 +7,6 @@ package example.exConnected;
 
 import example.exRead.*;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
@@ -65,11 +64,13 @@ public class ExSQLQueryDate {
 
 				ExReadExcelData exread = new ExReadExcelData();
 
-				List<java.util.Date> listDateSt = exread.getDate(dateStart);
+				List<Date> listDateSt = exread.getDate(dateStart);
 
-					for (Date ds : listDateSt) {
-						stm.setDate(1,  (java.sql.Date) ds);
-					}
+				//					ExSQLQueryDate esq = new ExSQLQueryDate();
+				//					esq.getCurrentDate(d);
+				//					Date df = d;
+				for (Date d : listDateSt)
+					stm.setTimestamp(1, new Timestamp(d.getTime()));
 				stm.addBatch();
 				stm.executeUpdate();
 			}
@@ -78,8 +79,13 @@ public class ExSQLQueryDate {
 			e.printStackTrace();
 		} finally {
 			System.out.println("-/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/--/*/-");
-			System.out.println("Закрыли соединение с БД после внесения данных...");
+			System.out.println("Закрыли соединение с БД после внесения/не внесения данных...");
 		}
+	}
+
+	private java.sql.Date getCurrentDate(Date d) {
+		d = new java.util.Date();
+		return new java.sql.Date(d.getTime());
 	}
 
 	/*

@@ -79,7 +79,7 @@ public class ExReadExcelData {
 	private LinkedList<String> typelessons;
 
 
-	private LinkedList<Date> columnStrData;
+	private LinkedList<Date> columndata;
 
 	/**
 	 * метод для построения таблицы из прчитанных данных и просмотра данных
@@ -127,70 +127,36 @@ public class ExReadExcelData {
 			XSSFWorkbook workbook = new XSSFWorkbook(ios);
 			XSSFSheet sheet = workbook.getSheetAt(0);
 			Iterator<Row> rowIterator = sheet.iterator();
-			columnStrData = new LinkedList<>();
+			columndata = new LinkedList<>();
 
 			while (rowIterator.hasNext()) {
 				Row row = rowIterator.next();
 				Iterator<Cell> cellIterator = row.cellIterator();
 				while (cellIterator.hasNext()) {
-					cell = cellIterator.next();
+					Cell cell = cellIterator.next();
+
 					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
-						// вставить метод выбора типа данных
-						//	selectTypeData(columnIndex);
-						if (cell.getColumnIndex() == columnIndex) {
+						if (cell.getColumnIndex() == columnIndex) {// соответствие индекса столбца
 							switch (cell.getCellType()) {
 								case Cell.CELL_TYPE_NUMERIC:
-									if (DateUtil.isCellDateFormatted(cell)) {
-										Date date = cell.getDateCellValue();
-										columnStrData.add(date);
-									} else {
-										System.out.println("НЕ ВЕРНЫЙ ФОРМАТ ЯЧЕЙКИ.");
-									}
-
-//						switch (cell.getCellType()) {
-////								case Cell.CELL_TYPE_NUMERIC:
-////							String time = "HH:mm";
-//							if (DateUtil.isCellDateFormatted(cell)) {// получение данных времени
-//								Date date = cell.getDateCellValue();
-//								columnStrData.add(date);
-////								SimpleDateFormat sdfTime = new SimpleDateFormat(time, Locale.UK);
-//								columnStrData.add(sdfTime.format(cell.getDateCellValue()));
-//							}
-//							break;
-//						}
+									Date date = cell.getDateCellValue();
+									columndata.add(date);
 							}
+							break;
 						}
 					}
-					ios.close();
-					Iterator it = columnStrData.iterator();
-					while (it.hasNext()) {
-						System.out.println(it.next());
-					}
 				}
+			}
+			ios.close();
+			Iterator it = columndata.iterator();
+			while (it.hasNext()) {
+				System.out.println(it.next());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return columnStrData;
+		return columndata;
 	}
-
-
-//					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
-//						if (cell.getColumnIndex() == columnIndex) {// соответствие индекса столбца
-//							switch (cell.getCellType()) {
-//								case Cell.CELL_TYPE_NUMERIC:
-//									String time = "HH:mm";
-//									if (DateUtil.isCellDateFormatted(cell)) {// получение данных времени
-//										SimpleDateFormat sdfTime = new SimpleDateFormat(time, Locale.UK);
-//										columndata.add(sdfTime.format(cell.getDateCellValue()));
-//									}
-//									break;
-//							}
-//						}
-//	private void getDateFormat(int columnIndex) {
-//		String d = "dd.MM.yyyy";
-//		Date date = cell.getDateCellValue();
-//	}
 
 
 //	private void selectTypeData(int columnIndex) {
