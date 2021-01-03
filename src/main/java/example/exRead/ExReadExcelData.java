@@ -9,7 +9,6 @@ import org.apache.poi.xssf.usermodel.*;
 
 import java.io.*;
 import java.sql.Time;
-import java.time.LocalTime;
 import java.util.*;
 
 /**
@@ -63,6 +62,7 @@ public class ExReadExcelData {
 //		ExReadExcelColums exr = new ExReadExcelColums();
 
 		ExReadExcelData exr = new ExReadExcelData();
+		exr.getString(4);
 //		exr.buildingTable();
 //		exr.getDate(columnIndex);
 //		exr.getTime(columnIndex);
@@ -79,14 +79,103 @@ public class ExReadExcelData {
 	private LinkedList<String> typelessons;
 
 
-	private LinkedList<Date> columndata;
-	private List<Long> columnTime;
+	private LinkedList<Date> columndataDate;
+	private LinkedList<String> columndataStr;
+
+//	private List<Long> columnTime;
 
 	/**
 	 * метод для построения таблицы из прчитанных данных и просмотра данных
 	 * Вопросы:
 	 * 1. формат даты считывается как ссылка
 	 */
+
+	/**
+	 * метод должен получить определённые номера колонок, вызвать метод, который обработает тип ячейки
+	 * и вернуть считанные данные
+	 */
+	Cell cell = null;
+
+	public List<Date> getDate(int columnIndex) {
+
+		try {
+			File f = new File(fileName);
+			FileInputStream ios = new FileInputStream(f);
+			XSSFWorkbook workbook = new XSSFWorkbook(ios);
+			XSSFSheet sheet = workbook.getSheetAt(0);
+			Iterator<Row> rowIterator = sheet.iterator();
+			columndataDate = new LinkedList<>();
+
+			while (rowIterator.hasNext()) {
+				Row row = rowIterator.next();
+				Iterator<Cell> cellIterator = row.cellIterator();
+				while (cellIterator.hasNext()) {
+					Cell cell = cellIterator.next();
+
+					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
+						if (cell.getColumnIndex() == columnIndex) {// соответствие индекса столбца
+							switch (cell.getCellType()) {
+								case Cell.CELL_TYPE_NUMERIC:
+									Date date = cell.getDateCellValue();
+									columndataDate.add(date);
+							}
+							break;
+						}
+					}
+				}
+			}
+			ios.close();
+			/*			просмотр прочитанного			 */
+//			Iterator it = columndataDate.iterator();
+//			while (it.hasNext()) {
+//				System.out.println(it.next());
+//			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return columndataDate;
+	}
+
+	public List<String> getString(int columnIndex) {
+
+		try {
+			File f = new File(fileName);
+			FileInputStream ios = new FileInputStream(f);
+			XSSFWorkbook workbook = new XSSFWorkbook(ios);
+			XSSFSheet sheet = workbook.getSheetAt(0);
+			Iterator<Row> rowIterator = sheet.iterator();
+			columndataStr = new LinkedList<>();
+
+			while (rowIterator.hasNext()) {
+				Row row = rowIterator.next();
+				Iterator<Cell> cellIterator = row.cellIterator();
+				while (cellIterator.hasNext()) {
+					Cell cell = cellIterator.next();
+
+					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
+						if (cell.getColumnIndex() == columnIndex) {// соответствие индекса столбца
+							switch (cell.getCellType()) {
+								case Cell.CELL_TYPE_STRING: // получение строчных данных
+									columndataStr.add(cell.getStringCellValue());
+									break;
+							}
+						}
+					}
+				}
+			}
+			ios.close();
+			/*			просмотр прочитанного			 */
+			Iterator it = columndataStr.iterator();
+			while (it.hasNext()) {
+				System.out.println(it.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return columndataStr;
+	}
+
+
 
 //	public void buildingTable() {
 //		ExReadExcelColums exr = new ExReadExcelColums();
@@ -114,50 +203,6 @@ public class ExReadExcelData {
 //		}
 //	}
 
-	/**
-	 * метод должен получить определённые номера колонок, вызвать метод, который обработает тип ячейки
-	 * и вернуть считанные данные
-	 */
-	Cell cell = null;
-
-	public List<Date> getDate(int columnIndex) {
-
-		try {
-			File f = new File(fileName);
-			FileInputStream ios = new FileInputStream(f);
-			XSSFWorkbook workbook = new XSSFWorkbook(ios);
-			XSSFSheet sheet = workbook.getSheetAt(0);
-			Iterator<Row> rowIterator = sheet.iterator();
-			columndata = new LinkedList<>();
-
-			while (rowIterator.hasNext()) {
-				Row row = rowIterator.next();
-				Iterator<Cell> cellIterator = row.cellIterator();
-				while (cellIterator.hasNext()) {
-					Cell cell = cellIterator.next();
-
-					if (row.getRowNum() > 0) { //фильтрация заголовков столбцов
-						if (cell.getColumnIndex() == columnIndex) {// соответствие индекса столбца
-							switch (cell.getCellType()) {
-								case Cell.CELL_TYPE_NUMERIC:
-									Date date = cell.getDateCellValue();
-									columndata.add(date);
-							}
-							break;
-						}
-					}
-				}
-			}
-			ios.close();
-//			Iterator it = columndata.iterator();
-//			while (it.hasNext()) {
-//				System.out.println(it.next());
-//			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return columndata;
-	}
 
 //	public List<Long> getTime(int columnIndex) {
 //
