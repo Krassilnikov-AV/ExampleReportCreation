@@ -21,18 +21,19 @@ public class ExampleConnection {
 	public static void main(String[] args) throws SQLException, IOException {
 		ExampleConnection exampleConnection = new ExampleConnection();
 //
-//		ExSQLQueryDate exSQLQueryDate = new ExSQLQueryDate();
-		ExQuery exQuery = new ExQuery();
+		ExSQLQueryDate exSQLQueryDate = new ExSQLQueryDate();
+//		ExQuery exQuery = new ExQuery();
 
 		exampleConnection.getNameURL();
 
-//		exSQLQueryDate.deletedDataSQL();
-//		exSQLQueryDate.insertQuerySQL();
+		exSQLQueryDate.deletedDataSQL();
+		exSQLQueryDate.insertExecuteBatchQuerySQL();
+//		exSQLQueryDate.insertExecuteUpdateQuerySQL();
 
 //		exSQLQueryDate.insertStartDateSQL();
 //		exSQLQueryDate.insertStartTimeSQL();
 
-		exQuery.writeWithCompileQuery(100);
+//		exQuery.writeWithCompileQuery(100);
 //		exQuery.writeInABatchWithCompiledQuery(100);
 	}
 

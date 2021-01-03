@@ -149,10 +149,10 @@ public class ExReadExcelData {
 				}
 			}
 			ios.close();
-			Iterator it = columndata.iterator();
-			while (it.hasNext()) {
-				System.out.println(it.next());
-			}
+//			Iterator it = columndata.iterator();
+//			while (it.hasNext()) {
+//				System.out.println(it.next());
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
