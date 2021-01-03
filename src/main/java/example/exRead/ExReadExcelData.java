@@ -62,7 +62,7 @@ public class ExReadExcelData {
 //		ExReadExcelColums exr = new ExReadExcelColums();
 
 		ExReadExcelData exr = new ExReadExcelData();
-		exr.getString(4);
+		exr.getString(3);
 //		exr.buildingTable();
 //		exr.getDate(columnIndex);
 //		exr.getTime(columnIndex);
@@ -165,10 +165,10 @@ public class ExReadExcelData {
 			}
 			ios.close();
 			/*			просмотр прочитанного			 */
-			Iterator it = columndataStr.iterator();
-			while (it.hasNext()) {
-				System.out.println(it.next());
-			}
+//			Iterator it = columndataStr.iterator();
+//			while (it.hasNext()) {
+//				System.out.println(it.next());
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
