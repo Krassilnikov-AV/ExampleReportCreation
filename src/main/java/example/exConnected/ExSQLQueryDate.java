@@ -85,7 +85,6 @@ public class ExSQLQueryDate {
 				System.out.println("размер столбца " + size + " строк");
 				long start = System.currentTimeMillis();
 				for (int i = 0; i < size; i++) {
-
 					String prog = listProgram.pop();
 					stm.setString(1, prog);
 
@@ -115,8 +114,8 @@ public class ExSQLQueryDate {
 
 					stm.addBatch();
 					long startInternal = System.currentTimeMillis();
-					System.out.println("время вставки эелемента: " +
-						(System.currentTimeMillis() - startInternal) + " " + "ms");
+//					System.out.println("время вставки эелемента: " +
+//						(System.currentTimeMillis() - startInternal) + " " + "ms");
 				}
 				long end = System.currentTimeMillis();
 				System.out.println("суммарное время вставки: " + (end - start) + " ms");

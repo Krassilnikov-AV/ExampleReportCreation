@@ -43,7 +43,7 @@ public class ExReadExcelData {
 	final int academRecord = 20;   // академических записей (число)
 
 
-	String fileName = "Primer_raspisania1.xlsx";
+	String fileName = "Primer_raspisania.xlsx";
 	//String fileName = "fileToRead";
 //	private LinkedList<String> columnStrData;
 
@@ -94,7 +94,7 @@ public class ExReadExcelData {
 	 * метод должен получить определённые номера колонок, вызвать метод, который обработает тип ячейки
 	 * и вернуть считанные данные
 	 */
-	Cell cell = null;
+//	Cell cell = null;
 
 	public List<Date> getDate(int columnIndex) {
 
