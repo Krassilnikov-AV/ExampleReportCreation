@@ -5,8 +5,8 @@
          version="4.0">
 	<servlet>
 		<servlet-name>HelloServlet</servlet-name>
-		<servlet-class>example.servlet.HelloServlet</servlet-class>
-			</servlet>
+		<servlet-class>ee.HelloServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>HelloServlet</servlet-name>
 		<url-pattern>/hello</url-pattern>

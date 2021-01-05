@@ -1,4 +1,4 @@
-package example.servlet;
+package ee;
 
 import com.ibm.useful.http.*;
 import connection.ConfigurateApp;

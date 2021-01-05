@@ -54,7 +54,7 @@
                             <input type="submit" value="Удалить" name="delete" >
                         </p></td></tr>
                 <tr><td><p><input type="submit" value="Создать_отчёт" name="create"></p></td></tr>
-                </form> 
+
             </tbody>
         </table>
     </form>
