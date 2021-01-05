@@ -44,16 +44,16 @@ public class UploadServlet extends HttpServlet {
 
         ExReadExcelData red = new ExReadExcelData();
 
-        String result = null;
-        List<String> list = null;
-        int columnIndex = 0;
+//        String result = null;
+//        List<String> list = null;
+//        int columnIndex = 0;
         /**
          * if (request.getContentType().contains("multipart/form-data"))
          *
          * {
          *
-         * //получение пути выбранного файла String pathToFile =
-         * multidata.toString();
+         * //получение пути выбранного файла
+         * String pathToFile = multidata.toString();
          *
          * ReadExcelData red = new ReadExcelData(); List<String> result = null;
          *

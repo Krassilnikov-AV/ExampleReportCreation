@@ -44,14 +44,14 @@ public class ConfigurateApp {
 			if (ps.getProperty("database.password").length() > 0) {
 				databasePassword = ps.getProperty("database.password");
 			}
-//			if (ps.getProperty("pathStorage").length() > 0) {
-//				path = ps.getProperty("pathStorage");
-//			}
+			if (ps.getProperty("pathStorage").length() > 0) {
+				path = ps.getProperty("pathStorage");
+			}
 //			return ps;
 		}
-//		catch (IOException e) {
-//			System.out.println("не получили данные..." + e);
-//		}
+		catch (IOException e) {
+			System.out.println("не получили данные..." + e);
+		}
 	}
 
 	public String getPath() {
