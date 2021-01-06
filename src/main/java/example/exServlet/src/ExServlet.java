@@ -10,13 +10,13 @@ import java.io.IOException;
 /**
  * Класс ExServlet
  */
-//@WebServlet("ExServlet")
+@WebServlet("/")
 public class ExServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("name", "MyProject");
 
-		req.getRequestDispatcher("mypage.jsp").forward(req, resp);
+		req.getRequestDispatcher("index.jsp").forward(req, resp);
 	}
 
 //	@Override
